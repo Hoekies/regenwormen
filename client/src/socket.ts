@@ -4,7 +4,7 @@ import type { ClientToServerEvents, ServerToClientEvents } from "@regenvormen/sh
 // Lokaal: lege string = zelfde host (via Vite proxy)
 // Productie: zet VITE_SERVER_URL in Vercel environment variables
 //            naar je Railway/Render server-URL
-const SERVER_URL = import.meta.env.VITE_SERVER_URL ?? "";
+const SERVER_URL = import.meta.env.VITE_SERVER_URL ?? "https://regenwormen-963v.onrender.com";
 
 const socket = io(SERVER_URL, {
   autoConnect: false,
