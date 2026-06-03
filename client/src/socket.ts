@@ -1,7 +1,12 @@
 import { io } from "socket.io-client";
 import type { ClientToServerEvents, ServerToClientEvents } from "@regenvormen/shared";
 
-const socket = io({
+// Lokaal: lege string = zelfde host (via Vite proxy)
+// Productie: zet VITE_SERVER_URL in Vercel environment variables
+//            naar je Railway/Render server-URL
+const SERVER_URL = import.meta.env.VITE_SERVER_URL ?? "";
+
+const socket = io(SERVER_URL, {
   autoConnect: false,
   transports: ["websocket", "polling"],
 });

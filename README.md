@@ -70,6 +70,30 @@ Het spel eindigt als er geen open tegels meer in het midden liggen.
 
 ---
 
+## 🚀 Online zetten
+
+De app bestaat uit twee delen die apart gehost worden:
+
+| Deel | Waar | Wat |
+|------|------|-----|
+| **Client** | [Vercel](https://vercel.com) | Statische React-app |
+| **Server** | [Railway](https://railway.app) | Socket.IO server |
+
+### Stap 1 — Server op Railway
+1. Maak een nieuw project op Railway, koppel deze GitHub repo
+2. Stel de **root directory** in op `server/`
+3. Start-commando: `npm install && npm run build && npm start`
+4. Kopieer de publieke URL (bijv. `https://regenwormen-server.railway.app`)
+
+### Stap 2 — Client op Vercel
+1. Importeer deze repo op Vercel
+2. Voeg een **Environment Variable** toe:
+   - Naam: `VITE_SERVER_URL`
+   - Waarde: de Railway-URL uit stap 1
+3. Deploy — Vercel pakt automatisch `vercel.json` op
+
+---
+
 ## 📜 Licentie
 
 MIT — vrij te gebruiken en aan te passen.
