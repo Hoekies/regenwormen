@@ -19,7 +19,8 @@ type Action =
   | { type: "JOINED_ROOM"; playerId: string }
   | { type: "GAME_UPDATED"; state: GameState }
   | { type: "ERROR"; message: string }
-  | { type: "CLEAR_ERROR" };
+  | { type: "CLEAR_ERROR" }
+  | { type: "DISCONNECT"; message: string };
 
 function reducer(s: AppState, a: Action): AppState {
   switch (a.type) {
@@ -37,6 +38,8 @@ function reducer(s: AppState, a: Action): AppState {
       return { ...s, error: a.message };
     case "CLEAR_ERROR":
       return { ...s, error: "" };
+    case "DISCONNECT":
+      return { ...s, screen: "home", error: a.message };
     default:
       return s;
   }
@@ -68,11 +71,21 @@ export default function App() {
       dispatch({ type: "ERROR", message });
     });
 
+    socket.on("disconnect", () => {
+      dispatch({ type: "DISCONNECT", message: "Verbinding verbroken. Teruggegaan naar home." });
+    });
+
+    socket.on("connect", () => {
+      dispatch({ type: "CLEAR_ERROR" });
+    });
+
     return () => {
       socket.off("roomCreated");
       socket.off("joinedRoom");
       socket.off("roomUpdated");
       socket.off("error");
+      socket.off("disconnect");
+      socket.off("connect");
       socket.disconnect();
     };
   }, []);
