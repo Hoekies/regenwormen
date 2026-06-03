@@ -1,23 +1,14 @@
 import { useState } from "react";
 
-function ShareButton() {
-  const [copied, setCopied] = useState(false);
-
-  async function handleShare() {
-    const url = window.location.href;
-    if (navigator.share) {
-      await navigator.share({ title: "Hoekies Regenwormen", url });
-    } else {
-      await navigator.clipboard.writeText(url);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
+function WhatsAppButton({ text }: { text: string }) {
+  function handleShare() {
+    const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+    window.open(url, "_blank", "noopener");
   }
-
   return (
-    <button className="share-btn" onClick={handleShare} title="Deel de link">
-      <img src="/favicon.svg" alt="deel" className="share-favicon" />
-      <span>{copied ? "Gekopieerd!" : "Deel link"}</span>
+    <button className="wa-btn" onClick={handleShare} title="Delen via WhatsApp">
+      <img src="/img/whatsapp.svg" alt="WhatsApp" className="wa-icon" />
+      <span>Delen via WhatsApp</span>
     </button>
   );
 }
@@ -81,6 +72,8 @@ export default function Lobby({ screen, roomCode, playerId, gameState, error, on
               </li>
             ))}
           </ul>
+
+          <WhatsAppButton text={`Speel mee met Hoekies Regenwormen! 🪱\nJoin met code: ${roomCode}\n${window.location.href}`} />
 
           {isHost && players.length >= 1 && (
             <button className="start-img-btn" onClick={handleStart}>
@@ -152,7 +145,7 @@ export default function Lobby({ screen, roomCode, playerId, gameState, error, on
           </button>
         )}
 
-        <ShareButton />
+        <WhatsAppButton text={`Speel Hoekies Regenwormen! 🪱\n${window.location.href}`} />
 
         <div className="deco-bottom-row">
           <img src="/img/worm1.png" alt="" className="deco-worm" aria-hidden="true" />

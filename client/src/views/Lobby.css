@@ -152,30 +152,33 @@
 
 .waiting-msg { text-align: center; color: #888; margin: .5rem 0; }
 
-/* Share knop */
-.share-btn {
+/* WhatsApp knop */
+.wa-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: .5rem;
+  gap: .55rem;
   margin: .75rem auto 0;
-  background: rgba(255,255,255,.15);
-  border: 2px solid rgba(255,255,255,.3);
-  border-radius: 12px;
-  padding: .45rem 1rem;
-  color: #555;
-  font-size: .9rem;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  border: none;
+  border-radius: 14px;
+  padding: .55rem 1.2rem;
+  color: #fff;
+  font-size: .95rem;
   font-weight: 700;
   cursor: pointer;
-  transition: background .2s, transform .1s;
-  min-height: 40px;
+  box-shadow: 0 5px 16px rgba(37,211,102,.4), inset 0 -3px 0 #075E54;
+  transition: transform .1s, box-shadow .1s;
+  min-height: 44px;
+  width: 100%;
 }
-.share-btn:hover { background: rgba(255,255,255,.3); transform: scale(1.03); }
-.share-btn:active { transform: scale(.96); }
-.share-favicon {
-  width: 22px;
-  height: 22px;
+.wa-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,211,102,.5), inset 0 -3px 0 #075E54; }
+.wa-btn:active { transform: scale(.95); }
+.wa-icon {
+  width: 26px;
+  height: 26px;
   object-fit: contain;
+  flex-shrink: 0;
 }
 
 @media (max-width: 480px) {
