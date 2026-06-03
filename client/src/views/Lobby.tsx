@@ -2,13 +2,11 @@ import { useState } from "react";
 
 function WhatsAppButton({ text }: { text: string }) {
   function handleShare() {
-    const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
-    window.open(url, "_blank", "noopener");
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank", "noopener");
   }
   return (
-    <button className="wa-btn" onClick={handleShare} title="Delen via WhatsApp">
-      <img src="/img/whatsapp.svg" alt="WhatsApp" className="wa-icon" />
-      <span>Delen via WhatsApp</span>
+    <button className="wa-icon-btn" onClick={handleShare} title="Delen via WhatsApp">
+      <img src="/img/whatsapp.svg" alt="WhatsApp" />
     </button>
   );
 }
@@ -58,7 +56,10 @@ export default function Lobby({ screen, roomCode, playerId, gameState, error, on
 
           <div className="room-code-display">
             <span className="room-label">Room-code</span>
-            <span className="room-code">{roomCode}</span>
+            <div className="room-code-row">
+              <span className="room-code">{roomCode}</span>
+              <WhatsAppButton text={`Speel mee met Hoekies Regenwormen! 🪱\nJoin met code: ${roomCode}\n${window.location.href}`} />
+            </div>
           </div>
 
           <h2 className="players-heading">Spelers ({players.length}/7)</h2>
@@ -72,8 +73,6 @@ export default function Lobby({ screen, roomCode, playerId, gameState, error, on
               </li>
             ))}
           </ul>
-
-          <WhatsAppButton text={`Speel mee met Hoekies Regenwormen! 🪱\nJoin met code: ${roomCode}\n${window.location.href}`} />
 
           {isHost && players.length >= 1 && (
             <button className="start-img-btn" onClick={handleStart}>
@@ -97,7 +96,10 @@ export default function Lobby({ screen, roomCode, playerId, gameState, error, on
   return (
     <div className="lobby-container">
       <div className="lobby-card card">
-        <img src="/img/logo.png" alt="Wormen" className="lobby-logo" />
+        <div className="lobby-logo-row">
+          <img src="/img/logo.png" alt="Wormen" className="lobby-logo" />
+          <WhatsAppButton text={`Speel Hoekies Regenwormen! 🪱\n${window.location.href}`} />
+        </div>
         <p className="lobby-sub">Online dobbelspel voor 2–7 spelers</p>
 
         <div className="tab-row">
@@ -144,8 +146,6 @@ export default function Lobby({ screen, roomCode, playerId, gameState, error, on
             Joinen
           </button>
         )}
-
-        <WhatsAppButton text={`Speel Hoekies Regenwormen! 🪱\n${window.location.href}`} />
 
         <div className="deco-bottom-row">
           <img src="/img/worm1.png" alt="" className="deco-worm" aria-hidden="true" />

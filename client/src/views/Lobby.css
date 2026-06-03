@@ -8,12 +8,24 @@
 }
 .lobby-card { width: 100%; max-width: 460px; }
 
+.lobby-logo-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: .5rem;
+  margin-bottom: .6rem;
+}
 .lobby-logo {
   display: block;
   width: 100%;
-  max-width: 340px;
-  margin: 0 auto .6rem;
+  max-width: 300px;
   filter: drop-shadow(0 8px 20px rgba(0,0,0,.2));
+}
+
+.room-code-row {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
 }
 
 .lobby-sub { text-align: center; color: #666; margin-bottom: 1.2rem; font-size: 1rem; }
@@ -152,34 +164,24 @@
 
 .waiting-msg { text-align: center; color: #888; margin: .5rem 0; }
 
-/* WhatsApp knop */
-.wa-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: .55rem;
-  margin: .75rem auto 0;
-  background: linear-gradient(135deg, #25D366, #128C7E);
+/* WhatsApp icoon-knop */
+.wa-icon-btn {
+  background: none;
   border: none;
-  border-radius: 14px;
-  padding: .55rem 1.2rem;
-  color: #fff;
-  font-size: .95rem;
-  font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 5px 16px rgba(37,211,102,.4), inset 0 -3px 0 #075E54;
-  transition: transform .1s, box-shadow .1s;
-  min-height: 44px;
-  width: 100%;
+  padding: 0;
+  width: 44px;
+  height: 44px;
+  transition: transform .15s;
 }
-.wa-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,211,102,.5), inset 0 -3px 0 #075E54; }
-.wa-btn:active { transform: scale(.95); }
-.wa-icon {
-  width: 26px;
-  height: 26px;
-  object-fit: contain;
-  flex-shrink: 0;
+.wa-icon-btn img {
+  width: 44px;
+  height: 44px;
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.2));
 }
+.wa-icon-btn:hover { transform: scale(1.12); }
+.wa-icon-btn:active { transform: scale(.92); }
 
 @media (max-width: 480px) {
   .lobby-logo { max-width: 260px; }
