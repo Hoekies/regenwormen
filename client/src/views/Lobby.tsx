@@ -1,4 +1,26 @@
 import { useState } from "react";
+
+function ShareButton() {
+  const [copied, setCopied] = useState(false);
+
+  async function handleShare() {
+    const url = window.location.href;
+    if (navigator.share) {
+      await navigator.share({ title: "Hoekies Regenwormen", url });
+    } else {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  }
+
+  return (
+    <button className="share-btn" onClick={handleShare} title="Deel de link">
+      <img src="/favicon.svg" alt="deel" className="share-favicon" />
+      <span>{copied ? "Gekopieerd!" : "Deel link"}</span>
+    </button>
+  );
+}
 import type { GameState } from "@regenvormen/shared";
 import socket from "../socket";
 import { wormAvatar } from "../wormAvatar";
@@ -129,6 +151,8 @@ export default function Lobby({ screen, roomCode, playerId, gameState, error, on
             Joinen
           </button>
         )}
+
+        <ShareButton />
 
         <div className="deco-bottom-row">
           <img src="/img/worm1.png" alt="" className="deco-worm" aria-hidden="true" />
