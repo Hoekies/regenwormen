@@ -1,0 +1,116 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green:   #66bb6a;
+  --green-d: #2e7d32;
+  --brown:   #795548;
+  --brown-l: #a1887f;
+  --cream:   #fff8e1;
+  --orange:  #ff9100;
+  --orange-d:#e65100;
+  --red:     #c62828;
+  --gold:    #ffc107;
+  --white:   #ffffff;
+  --shadow:  0 8px 24px rgba(0,0,0,.15), 0 0 0 1px rgba(0,0,0,.06);
+  --radius:  20px;
+  --pad: .75rem;
+}
+
+html {
+  touch-action: manipulation;
+  height: 100%;
+}
+
+body {
+  font-family: "Fredoka", sans-serif;
+  background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+  height: 100dvh;
+  overflow: hidden;
+  color: #1a1a1a;
+  display: flex;
+  justify-content: center;
+  /* Veilige zones notch/home-indicator */
+  padding-top:    env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left:   env(safe-area-inset-left, 0px);
+  padding-right:  env(safe-area-inset-right, 0px);
+}
+
+#root {
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: .5rem var(--pad) .5rem;
+}
+
+/* ── Knoppen ─────────────────────────────── */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: .55rem 1rem;
+  transition: transform 80ms, box-shadow 80ms;
+  min-height: 44px;
+}
+button:active { transform: scale(.95); }
+button:disabled { opacity: .4; cursor: not-allowed; }
+
+.btn-primary {
+  background: linear-gradient(135deg, #ff9100, #ffb74d);
+  color: var(--white);
+  box-shadow: 0 5px 16px rgba(255,145,0,.35), inset 0 -3px 0 #bf360c;
+}
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #e65100, #ff9100);
+}
+.btn-secondary {
+  background: linear-gradient(135deg, #66bb6a, #81c784);
+  color: var(--white);
+  box-shadow: 0 5px 16px rgba(102,187,106,.35), inset 0 -3px 0 #2e7d32;
+}
+.btn-danger {
+  background: linear-gradient(135deg, #ef5350, #e53935);
+  color: var(--white);
+  box-shadow: 0 5px 16px rgba(198,40,40,.35), inset 0 -3px 0 #b71c1c;
+}
+
+input[type="text"] {
+  font-family: inherit;
+  font-size: max(16px, 1rem);
+  padding: .6rem .9rem;
+  border: 3px solid #d5c9b6;
+  border-radius: 12px;
+  width: 100%;
+  background: linear-gradient(to bottom, #fff, #fafaf8);
+  outline: none;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,.05);
+  transition: border-color .2s, box-shadow .2s;
+}
+input[type="text"]:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 4px rgba(255,145,0,.2), inset 0 2px 4px rgba(0,0,0,.05);
+}
+
+.card {
+  background: var(--cream);
+  border-radius: var(--radius);
+  padding: .75rem;
+  box-shadow: var(--shadow);
+}
+
+.error-msg {
+  color: var(--red);
+  font-weight: 700;
+  background: #ffebee;
+  padding: .4rem .8rem;
+  border-radius: 10px;
+  margin-top: .4rem;
+  font-size: .88rem;
+  border-left: 4px solid var(--red);
+}

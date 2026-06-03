@@ -1,0 +1,47 @@
+.dice-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+  margin: .4rem 0;
+}
+.die {
+  width: 46px;
+  height: 46px;
+  font-size: 1.4rem;
+  font-weight: 800;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #fff, #f0f0f0);
+  border: 3px solid #999;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  transition: transform 120ms, box-shadow 120ms;
+  user-select: none;
+  min-width: 44px;
+  min-height: 44px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.14), inset 0 -2px 0 #bdbdbd, inset 0 1px 0 rgba(255,255,255,.9);
+}
+.die.worm {
+  background: linear-gradient(135deg, #c8e6c9, #a5d6a7);
+  border-color: #2e7d32;
+  font-size: 1.6rem;
+  box-shadow: 0 4px 10px rgba(102,187,106,.3), inset 0 -2px 0 #2e7d32, inset 0 1px 0 rgba(255,255,255,.8);
+}
+.die.selectable {
+  background: linear-gradient(135deg, #fff9e6, #ffe0b2);
+  border-color: #ff9100;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(255,145,0,.38), inset 0 -2px 0 #e65100, inset 0 1px 0 rgba(255,255,255,.9);
+}
+.die.selectable:hover  { transform: translateY(-5px) scale(1.08); }
+.die.selectable:active { transform: scale(.94); }
+
+@keyframes shake {
+  0%,100% { transform: rotate(0) scale(1); }
+  20%  { transform: rotate(-13deg) scale(1.05); }
+  50%  { transform: rotate(11deg) scale(1.05); }
+  80%  { transform: rotate(-7deg) scale(1.02); }
+}
+.die.rolling { animation: shake 380ms cubic-bezier(.68,.55,.265,1.55); }

@@ -1,0 +1,81 @@
+@keyframes overlay-in {
+  from { opacity: 0; transform: translate(-50%, -60%) scale(.8); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.event-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.6rem;
+  border-radius: 22px;
+  cursor: pointer;
+  width: min(92vw, 420px);
+  animation: overlay-in 300ms cubic-bezier(.34,1.56,.64,1) forwards;
+}
+
+.event-bust {
+  background: linear-gradient(135deg, #d32f2f, #ef5350);
+  border: 3px solid #c62828;
+  color: #fff;
+  box-shadow: 0 20px 60px rgba(198,40,40,.55), inset 0 1px 0 rgba(255,255,255,.2);
+}
+.event-steal {
+  background: linear-gradient(135deg, #6a1b9a, #8e24aa);
+  border: 3px solid #4a148c;
+  color: #fff;
+  box-shadow: 0 20px 60px rgba(123,31,162,.55), inset 0 1px 0 rgba(255,255,255,.2);
+}
+.event-claim {
+  background: linear-gradient(135deg, #2e7d32, #66bb6a);
+  border: 3px solid #1b5e20;
+  color: #fff;
+  box-shadow: 0 20px 60px rgba(102,187,106,.55), inset 0 1px 0 rgba(255,255,255,.2);
+}
+
+.overlay-img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,.35));
+  transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+}
+.event-overlay:hover .overlay-img { transform: scale(1.15) rotate(-8deg); }
+
+.overlay-text { flex: 1; min-width: 0; }
+
+.overlay-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: .2rem;
+  text-shadow: 0 2px 6px rgba(0,0,0,.3);
+}
+.overlay-body { font-size: .95rem; line-height: 1.5; font-weight: 600; opacity: .95; }
+
+.tile-chip {
+  display: inline-block;
+  background: rgba(255,255,255,.3);
+  border: 2px solid rgba(255,255,255,.7);
+  border-radius: 8px;
+  padding: .05rem .45rem;
+  font-weight: 800;
+  font-size: 1.05rem;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.15);
+}
+.tile-closed {
+  background: rgba(0,0,0,.2);
+  border-color: rgba(255,255,255,.4);
+  text-decoration: line-through;
+}
+
+@media (max-width: 480px) {
+  .overlay-img { width: 56px; height: 56px; }
+  .overlay-title { font-size: 1.2rem; }
+  .overlay-body { font-size: .88rem; }
+}

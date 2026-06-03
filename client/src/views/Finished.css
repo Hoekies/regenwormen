@@ -1,0 +1,133 @@
+.finished-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+  padding-top: .75rem;
+}
+.finished-card {
+  width: 100%;
+  max-width: 520px;
+  text-align: center;
+  overflow: hidden;
+  transition: background .3s;
+}
+
+/* Achtergrondtint: subtiel groen (win) vs subtiel rood (lose) */
+.card-win  { background: #f0fff4; border: 2px solid #a5d6a7; }
+.card-lose { background: #fff5f5; border: 2px solid #ef9a9a; }
+
+/* Bord bovenaan */
+.finished-sign {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto 1rem;
+}
+
+/* Hero-sectie: worm links, tekst+item rechts */
+.finished-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+.finished-hero-worm {
+  width: 110px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+/* Verliezerworm: iets kleiner en grijs-tinted */
+.finished-hero-worm--sad {
+  width: 90px;
+  filter: grayscale(30%) brightness(.85);
+}
+.finished-hero-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .4rem;
+}
+.finished-hero-item {
+  width: 80px;
+  object-fit: contain;
+}
+
+/* Subtitels */
+.finished-subtitle {
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+.finished-subtitle.win  { color: #1b5e20; }
+.finished-subtitle.lose { color: #c62828; }
+
+/* Scoretabel */
+.score-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.25rem;
+  font-size: .95rem;
+}
+.score-table th {
+  background: #795548;
+  color: #fff;
+  padding: .5rem .6rem;
+  text-align: left;
+}
+.score-table td {
+  padding: .45rem .6rem;
+  border-bottom: 1px solid #e0d5c0;
+  vertical-align: middle;
+}
+.score-table tr:last-child td { border-bottom: none; }
+
+/* Winnaar-rij: goudkleurige achtergrond */
+.score-table tr.winner-row td {
+  background: #fffde7;
+  font-weight: 700;
+}
+/* Mijn rij als ik verlies: lichtblauw */
+.score-table tr.me:not(.winner-row) td {
+  background: #e3f2fd;
+}
+/* Mijn rij als ik win: lichtgroen */
+.score-table tr.me.winner-row td {
+  background: #e8f5e9;
+}
+
+.name-cell {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+}
+.table-worm {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.winner-crown { font-size: .9rem; margin-left: .1rem; }
+
+.th-coin {
+  width: 22px;
+  vertical-align: middle;
+}
+
+.new-btn {
+  font-size: 1.15rem;
+  padding: .75rem 2rem;
+  width: 100%;
+  max-width: 280px;
+}
+
+@media (max-width: 480px) {
+  .finished-sign { max-width: 230px; }
+  .finished-hero-worm { width: 85px; }
+  .finished-hero-worm--sad { width: 70px; }
+  .finished-hero-item { width: 65px; }
+  .finished-subtitle { font-size: 1.35rem; }
+  .new-btn { max-width: 100%; }
+}

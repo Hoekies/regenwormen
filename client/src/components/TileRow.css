@@ -1,0 +1,55 @@
+.tile-area {
+  background: linear-gradient(135deg, #f5f3ee, #ede7df);
+  border: 2.5px solid #d5c9b6;
+  border-radius: 14px;
+  padding: .5rem .6rem;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 3px 8px rgba(0,0,0,.08);
+}
+.tile-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .22rem;
+}
+.tile {
+  width: 40px;
+  height: 50px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  background: #e8e0d0;
+  border: 2.5px solid #c8b89a;
+  color: #bbb;
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1);
+}
+.tile.available {
+  background: linear-gradient(135deg, #fff9e6, #ffe0b2);
+  border: 2.5px solid #ff9100;
+  color: #e65100;
+  box-shadow: 0 4px 12px rgba(255,145,0,.3), inset 0 1px 0 rgba(255,255,255,.9);
+  font-weight: 800;
+}
+.tile.available:hover { transform: translateY(-2px) scale(1.05); }
+.tile.closed {
+  background: #d0c8be;
+  border-color: #a89880;
+  opacity: .3;
+  filter: grayscale(80%);
+}
+.tile-num { font-size: .82rem; line-height: 1; }
+.tile-worm-icons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1px;
+  margin-top: 2px;
+}
+.tile-worm-img {
+  width: 12px;
+  height: 12px;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,.12));
+}
+.tile-x { font-size: 1.1rem; color: #b71c1c; font-weight: 900; }
