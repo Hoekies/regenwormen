@@ -4,6 +4,7 @@ import socket from "./socket";
 import Lobby from "./views/Lobby";
 import GameTable from "./views/GameTable";
 import Finished from "./views/Finished";
+import Footer from "./components/Footer";
 
 interface AppState {
   screen: "home" | "lobby" | "game" | "finished";
@@ -80,31 +81,44 @@ export default function App() {
 
   if (state.screen === "home" || state.screen === "lobby") {
     return (
-      <Lobby
-        screen={state.screen}
-        roomCode={state.roomCode}
-        playerId={state.playerId}
-        gameState={state.gameState}
-        error={state.error}
-        onClearError={clearError}
-      />
+      <>
+        <Lobby
+          screen={state.screen}
+          roomCode={state.roomCode}
+          playerId={state.playerId}
+          gameState={state.gameState}
+          error={state.error}
+          onClearError={clearError}
+        />
+        <Footer />
+      </>
     );
   }
   if (state.screen === "game" && state.gameState) {
     return (
-      <GameTable
-        gameState={state.gameState}
-        playerId={state.playerId}
-        error={state.error}
-        onClearError={clearError}
-      />
+      <>
+        <GameTable
+          gameState={state.gameState}
+          playerId={state.playerId}
+          error={state.error}
+          onClearError={clearError}
+        />
+        <Footer />
+      </>
     );
   }
   if (state.screen === "finished" && state.gameState) {
-    return <Finished gameState={state.gameState} playerId={state.playerId} />;
+    return (
+      <>
+        <Finished gameState={state.gameState} playerId={state.playerId} />
+        <Footer />
+      </>
+    );
   }
-  // Lege state: lobby laadt nog
   return (
-    <Lobby screen="home" roomCode="" playerId="" gameState={null} error="" onClearError={() => {}} />
+    <>
+      <Lobby screen="home" roomCode="" playerId="" gameState={null} error="" onClearError={() => {}} />
+      <Footer />
+    </>
   );
 }

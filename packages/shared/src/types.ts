@@ -22,7 +22,7 @@ export interface TurnState {
 export type GamePhase = "lobby" | "playing" | "finished";
 
 export type LastEvent =
-  | { id: number; type: "bust"; playerName: string; returnedTile: number | null; closedTile: number | null }
+  | { id: number; type: "bust"; playerName: string; returnedTile: number | null; closedTile: number | null; bustDice: Die[] }
   | { id: number; type: "claim"; playerName: string; tile: number }
   | { id: number; type: "steal"; playerName: string; fromPlayerName: string; tile: number }
   | null;

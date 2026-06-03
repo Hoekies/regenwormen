@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { LastEvent } from "@regenvormen/shared";
 import { WORM_DIZZY } from "../wormAvatar";
+import Dice from "./Dice";
 import "./EventOverlay.css";
 
 interface Props {
@@ -24,7 +25,7 @@ export default function EventOverlay({ event }: Props) {
   if (!visible || !shown) return null;
 
   if (shown.type === "bust") {
-    const { playerName, returnedTile, closedTile } = shown;
+    const { playerName, returnedTile, closedTile, bustDice } = shown;
     return (
       <div className="event-overlay event-bust" onClick={() => setVisible(false)}>
         <img src={WORM_DIZZY} alt="Bust!" className="overlay-img" />
@@ -35,6 +36,9 @@ export default function EventOverlay({ event }: Props) {
             {returnedTile && <> Tegel <span className="tile-chip">{returnedTile}</span> terug.</>}
             {closedTile && <> Tegel <span className="tile-chip tile-closed">{closedTile}</span> dicht.</>}
           </div>
+          {bustDice && bustDice.length > 0 && (
+            <Dice dice={bustDice} />
+          )}
         </div>
       </div>
     );

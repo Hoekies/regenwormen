@@ -91,7 +91,7 @@ export function registerHandlers(io: IoServer, socket: IoSocket): void {
 
     const newTurn = applyRoll(state.turn);
     if (isBust(newTurn, state.tiles)) {
-      setState(ctx.roomCode, applyBust({ ...state, turn: newTurn }));
+      setState(ctx.roomCode, applyBust({ ...state, turn: newTurn }, newTurn.lastRoll));
     } else {
       setState(ctx.roomCode, { ...state, turn: newTurn });
     }

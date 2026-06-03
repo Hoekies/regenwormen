@@ -118,7 +118,7 @@ export function initGameState(roomCode: string, hostId: string, players: Player[
   };
 }
 
-export function applyBust(state: GameState): GameState {
+export function applyBust(state: GameState, bustDice: Die[] = []): GameState {
   const players = state.players.map((p) => ({ ...p, tiles: [...p.tiles] }));
   const current = players[state.currentPlayerIndex];
   let newTiles = [...state.tiles];
@@ -164,6 +164,7 @@ export function applyBust(state: GameState): GameState {
       closedTile: closedTiles.length > state.closedTiles.length
         ? closedTiles[closedTiles.length - 1]
         : null,
+      bustDice,
     },
   };
 }
