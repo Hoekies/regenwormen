@@ -84,6 +84,7 @@ export interface ClientToServerEvents {
   createRoom: (payload: CreateRoomPayload) => void;
   joinRoom: (payload: JoinRoomPayload) => void;
   rejoinRoom: (payload: { roomCode: string; playerId: string }) => void;
+  leaveRoom: () => void;
   startGame: () => void;
   rollDice: () => void;
   pickValue: (payload: PickValuePayload) => void;

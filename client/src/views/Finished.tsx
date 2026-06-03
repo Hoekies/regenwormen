@@ -1,6 +1,7 @@
 import type { GameState } from "@regenvormen/shared";
 import { scoreWorms } from "@regenvormen/shared";
 import { wormAvatar, WORM_WINNER, WORM_CRY, WORM_DEAD } from "../wormAvatar";
+import socket from "../socket";
 import "./Finished.css";
 
 interface Props {
@@ -9,6 +10,12 @@ interface Props {
 }
 
 export default function Finished({ gameState, playerId }: Props) {
+  function handleNewGame() {
+    localStorage.removeItem("regenwormen-session");
+    socket.emit("leaveRoom");
+    socket.disconnect();
+    window.location.href = "/";
+  }
   const sorted = [...gameState.players].sort((a, b) => scoreWorms(b) - scoreWorms(a));
   const winnerIndex = gameState.players.findIndex((p) => p.id === gameState.winner);
   const winner = gameState.players[winnerIndex];
@@ -80,7 +87,7 @@ export default function Finished({ gameState, playerId }: Props) {
           </tbody>
         </table>
 
-        <button className="btn-primary new-btn" onClick={() => window.location.reload()}>
+        <button className="btn-primary new-btn" onClick={handleNewGame}>
           Nieuw spel
         </button>
       </div>

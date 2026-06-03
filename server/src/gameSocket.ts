@@ -183,6 +183,14 @@ export function registerHandlers(io: IoServer, socket: IoSocket): void {
     broadcast(io, ctx.roomCode);
   });
 
+  socket.on("leaveRoom", () => {
+    const ctx = getPlayerIdBySocket(socket.id);
+    if (ctx) {
+      socket.leave(ctx.roomCode);
+      removeSocket(socket.id);
+    }
+  });
+
   socket.on("disconnect", () => {
     removeSocket(socket.id);
   });

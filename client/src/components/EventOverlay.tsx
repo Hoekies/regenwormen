@@ -18,7 +18,7 @@ export default function EventOverlay({ event }: Props) {
     if (shown && shown.id === event.id) return;
     setShown(event);
     setVisible(true);
-    const t = setTimeout(() => setVisible(false), 4500);
+    const t = setTimeout(() => setVisible(false), 3000);
     return () => clearTimeout(t);
   }, [event?.id]);
 
