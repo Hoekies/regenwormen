@@ -55,13 +55,32 @@ const init: AppState = {
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, init);
+
+  // Bij mount: localStorage checken voor auto-rejoin
+  useEffect(() => {
+    const saved = localStorage.getItem("regenwormen-session");
+    if (saved) {
+      const { roomCode, playerId } = JSON.parse(saved);
+      dispatch({ type: "JOINED_ROOM", playerId });
+      // Ik stuur meteen rejoin
+      setTimeout(() => {
+        socket.emit("rejoinRoom", { roomCode, playerId });
+      }, 100);
+    }
+  }, []);
+
   useEffect(() => {
     socket.connect();
 
     socket.on("roomCreated", ({ roomCode, playerId }) => {
+      localStorage.setItem("regenwormen-session", JSON.stringify({ roomCode, playerId }));
       dispatch({ type: "ROOM_CREATED", roomCode, playerId });
     });
     socket.on("joinedRoom", ({ playerId }) => {
+      const roomCode = state.roomCode || localStorage.getItem("regenwormen-session")?.split('"roomCode":"')[1]?.split('"')[0];
+      if (roomCode) {
+        localStorage.setItem("regenwormen-session", JSON.stringify({ roomCode, playerId }));
+      }
       dispatch({ type: "JOINED_ROOM", playerId });
     });
     socket.on("roomUpdated", ({ state: gs }) => {
@@ -72,11 +91,17 @@ export default function App() {
     });
 
     socket.on("disconnect", () => {
-      dispatch({ type: "DISCONNECT", message: "Verbinding verbroken. Teruggegaan naar home." });
+      if (state.roomCode && state.playerId) {
+        dispatch({ type: "ERROR", message: "Verbinding verbroken. Automatisch reconnecten..." });
+      }
     });
 
     socket.on("connect", () => {
       dispatch({ type: "CLEAR_ERROR" });
+      // Automatisch rejoin als we een room hebben
+      if (state.roomCode && state.playerId) {
+        socket.emit("rejoinRoom", { roomCode: state.roomCode, playerId: state.playerId });
+      }
     });
 
     return () => {

@@ -83,6 +83,13 @@ export function setState(roomCode: string, state: GameState): void {
   if (room) room.state = state;
 }
 
+export function registerSocket(roomCode: string, socketId: string, playerId: string): void {
+  const room = rooms.get(roomCode);
+  if (room) {
+    room.socketToPlayer.set(socketId, playerId);
+  }
+}
+
 export function getPlayerIdBySocket(socketId: string): { playerId: string; roomCode: string } | null {
   for (const [code, room] of rooms.entries()) {
     const playerId = room.socketToPlayer.get(socketId);

@@ -17,6 +17,7 @@ import {
   getPlayerIdBySocket,
   getState,
   joinRoom,
+  registerSocket,
   removeSocket,
   setState,
   startGame,
@@ -55,6 +56,24 @@ export function registerHandlers(io: IoServer, socket: IoSocket): void {
     }
     socket.join(code);
     socket.emit("joinedRoom", { playerId: result.playerId });
+    broadcast(io, code);
+  });
+
+  socket.on("rejoinRoom", ({ roomCode, playerId }) => {
+    const code = roomCode?.toUpperCase().trim();
+    const state = getState(code);
+    if (!state) {
+      socket.emit("error", { message: "Room niet gevonden." });
+      return;
+    }
+    const playerExists = state.players.some((p) => p.id === playerId);
+    if (!playerExists) {
+      socket.emit("error", { message: "Speler niet gevonden in room." });
+      return;
+    }
+    registerSocket(code, socket.id, playerId);
+    socket.join(code);
+    socket.emit("roomUpdated", { state });
     broadcast(io, code);
   });
 
