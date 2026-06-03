@@ -9,7 +9,7 @@ interface Room {
 const rooms = new Map<string, Room>();
 
 function generateCode(): string {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ";
   let code: string;
   do {
     code = Array.from({ length: 4 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
