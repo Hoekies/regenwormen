@@ -2,8 +2,8 @@ services:
   - type: web
     name: regenvormen-server
     runtime: node
-    buildCommand: npm install && npm run build --workspace=packages/shared && npm run build --workspace=server
-    startCommand: node server/dist/index.js
+    buildCommand: npm install
+    startCommand: npm start --workspace=server
     envVars:
       - key: NODE_ENV
         value: production
