@@ -8,6 +8,14 @@
   min-height: 0;
 }
 
+/* Header met TileRow + logout */
+.game-table-header {
+  display: flex;
+  gap: .4rem;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
 /* TileRow: vast, niet groeiend */
 .game-table > :first-child { flex-shrink: 0; }
 
@@ -109,3 +117,23 @@
 .bust-icon { width: 36px; height: 36px; object-fit: contain; flex-shrink: 0; }
 
 .waiting-msg { color: #888; font-style: italic; margin-top: .4rem; font-size: .9rem; }
+
+/* Logout knop */
+.logout-btn {
+  background: rgba(198,40,40,.15);
+  border: 2px solid rgba(198,40,40,.3);
+  color: #c62828;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.logout-btn:hover { background: rgba(198,40,40,.3); }
+.logout-btn:active { transform: scale(.9); }

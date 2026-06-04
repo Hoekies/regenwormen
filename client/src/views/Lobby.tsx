@@ -48,11 +48,21 @@ export default function Lobby({ screen, roomCode, playerId, gameState, error, on
     socket.emit("startGame");
   }
 
+  function handleLogout() {
+    localStorage.removeItem("regenwormen-session");
+    socket.emit("leaveRoom");
+    socket.disconnect();
+    window.location.href = "/";
+  }
+
   if (screen === "lobby" && roomCode) {
     return (
       <div className="lobby-container">
         <div className="lobby-card card">
-          <img src="/img/logo.png" alt="Wormen" className="lobby-logo" />
+          <div className="lobby-card-header">
+            <img src="/img/logo.png" alt="Wormen" className="lobby-logo" />
+            <button className="logout-btn" onClick={handleLogout} title="Spel verlaten">✕</button>
+          </div>
 
           <div className="room-code-display">
             <span className="room-label">Room-code</span>

@@ -61,6 +61,13 @@ export default function GameTable({ gameState, playerId, error, onClearError }: 
     socket.emit("stopAndClaim");
   }
 
+  function handleLogout() {
+    localStorage.removeItem("regenwormen-session");
+    socket.emit("leaveRoom");
+    socket.disconnect();
+    window.location.href = "/";
+  }
+
   useEffect(() => {
     if (error) {
       const t = setTimeout(onClearError, 3500);
@@ -71,7 +78,10 @@ export default function GameTable({ gameState, playerId, error, onClearError }: 
   return (
     <div className="game-table">
       <EventOverlay event={gameState.lastEvent} />
-      <TileRow tiles={tiles} closedTiles={gameState.closedTiles} />
+      <div className="game-table-header">
+        <TileRow tiles={tiles} closedTiles={gameState.closedTiles} />
+        <button className="logout-btn" onClick={handleLogout} title="Spel verlaten">✕</button>
+      </div>
 
       <div className="players-row">
         {players.map((p, i) => (
