@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from "react";
+import { useIntroAudio } from "./hooks/useIntroAudio";
 import type { GameState } from "@regenvormen/shared";
 import socket from "./socket";
 import Lobby from "./views/Lobby";
@@ -55,6 +56,9 @@ const init: AppState = {
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, init);
+
+  // Intro music: play on home/lobby, stop on game/finished
+  useIntroAudio(state.screen === "home" || state.screen === "lobby");
 
   // Bij mount: localStorage checken voor auto-rejoin
   useEffect(() => {
