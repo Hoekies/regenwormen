@@ -7,6 +7,7 @@ import DiceButton from "../components/DiceButton";
 import TileRow from "../components/TileRow";
 import PlayerStack from "../components/PlayerStack";
 import EventOverlay from "../components/EventOverlay";
+import { useDiceSound } from "../hooks/useDiceSound";
 import "./GameTable.css";
 
 interface Props {
@@ -18,6 +19,7 @@ interface Props {
 
 export default function GameTable({ gameState, playerId, error, onClearError }: Props) {
   const [rolling, setRolling] = useState(false);
+  useDiceSound(rolling);
   const { turn, players, currentPlayerIndex, tiles } = gameState;
   const currentPlayer = players[currentPlayerIndex];
   const isMyTurn = currentPlayer.id === playerId;
