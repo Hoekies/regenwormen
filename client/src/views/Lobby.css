@@ -6,13 +6,18 @@
   overflow-y: auto;
   padding-top: .75rem;
 }
-.lobby-card { width: 100%; max-width: 460px; }
+.lobby-card {
+  width: 100%;
+  max-width: 460px;
+  position: relative;
+}
 
-.lobby-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: .6rem;
+.lobby-logo {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto .6rem;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,.2));
 }
 
 .lobby-logo-row {
@@ -22,16 +27,11 @@
   gap: .5rem;
   margin-bottom: .6rem;
 }
-.lobby-logo {
-  display: block;
-  width: 100%;
-  max-width: 300px;
-  filter: drop-shadow(0 8px 20px rgba(0,0,0,.2));
-}
 
 .room-code-row {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: .75rem;
 }
 
@@ -191,7 +191,30 @@
 .wa-icon-btn:active { transform: scale(.92); }
 
 /* Logout knop */
-.logout-btn {
+.lobby-card .logout-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(198,40,40,.15);
+  border: 2px solid rgba(198,40,40,.3);
+  color: #c62828;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+.lobby-card .logout-btn:hover { background: rgba(198,40,40,.3); }
+.lobby-card .logout-btn:active { transform: scale(.9); }
+
+/* GameTable logout-knop */
+.game-table .logout-btn {
   background: rgba(198,40,40,.15);
   border: 2px solid rgba(198,40,40,.3);
   color: #c62828;
@@ -207,8 +230,8 @@
   justify-content: center;
   flex-shrink: 0;
 }
-.logout-btn:hover { background: rgba(198,40,40,.3); }
-.logout-btn:active { transform: scale(.9); }
+.game-table .logout-btn:hover { background: rgba(198,40,40,.3); }
+.game-table .logout-btn:active { transform: scale(.9); }
 
 @media (max-width: 480px) {
   .lobby-logo { max-width: 260px; }

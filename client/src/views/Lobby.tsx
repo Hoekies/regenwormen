@@ -59,10 +59,8 @@ export default function Lobby({ screen, roomCode, playerId, gameState, error, on
     return (
       <div className="lobby-container">
         <div className="lobby-card card">
-          <div className="lobby-card-header">
-            <img src="/img/logo.png" alt="Wormen" className="lobby-logo" />
-            <button className="logout-btn" onClick={handleLogout} title="Spel verlaten">✕</button>
-          </div>
+          <button className="logout-btn" onClick={handleLogout} title="Spel verlaten">✕</button>
+          <img src="/img/logo.png" alt="Wormen" className="lobby-logo" />
 
           <div className="room-code-display">
             <span className="room-label">Room-code</span>
