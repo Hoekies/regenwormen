@@ -81,25 +81,32 @@ export default function GameTable({ gameState, playerId, error, onClearError }: 
     <div className="game-table">
       <EventOverlay event={gameState.lastEvent} />
 
-      {/* Top: Tegels */}
-      <div className="game-table-header">
-        <TileRow tiles={tiles} closedTiles={gameState.closedTiles} />
-      </div>
+      {/* Combined card: Tegels + Spelers + Turn-info */}
+      <div className="game-card card">
+        {/* Top: Tegels */}
+        <div className="game-card-section">
+          <TileRow tiles={tiles} closedTiles={gameState.closedTiles} />
+        </div>
 
-      {/* Middle: Spelers + Beurt-info */}
-      <div className="players-row">
-        {players.map((p, i) => (
-          <PlayerStack
-            key={p.id}
-            player={p}
-            playerIndex={i}
-            isActive={i === currentPlayerIndex}
-            isMe={p.id === playerId}
-          />
-        ))}
-      </div>
+        {/* Middle: Spelers */}
+        <div className="game-card-divider"></div>
+        <div className="game-card-section">
+          <div className="players-row">
+            {players.map((p, i) => (
+              <PlayerStack
+                key={p.id}
+                player={p}
+                playerIndex={i}
+                isActive={i === currentPlayerIndex}
+                isMe={p.id === playerId}
+              />
+            ))}
+          </div>
+        </div>
 
-      <div className="turn-panel card">
+        {/* Bottom: Turn-info */}
+        <div className="game-card-divider"></div>
+        <div className="game-card-section game-card-section--grow">
         <div className="turn-info">
           <span className="turn-player-name">{currentPlayer.name}</span>
           <span className="turn-sum">
@@ -143,6 +150,7 @@ export default function GameTable({ gameState, playerId, error, onClearError }: 
         )}
 
         {error && <p className="error-msg">{error}</p>}
+        </div>
       </div>
 
       {/* Bottom: Gooi + Logout */}
