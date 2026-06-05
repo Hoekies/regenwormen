@@ -39,12 +39,12 @@ export default function GameTable({ gameState, playerId, error, onClearError }: 
   const rowTile = worm ? claimableTile(sum, tiles) : null;
   const stopLabel = (() => {
     if (!worm || (!rowTile && !stealTarget)) return "✅ Stoppen (bust!)";
-    if (rowTile === sum && stealTarget) return `✅ Stoppen — pak tegel ${sum}`;
+    if (rowTile === sum && stealTarget) return `✅ Pak tegel ${sum}`;
     if (stealTarget) {
       const target = players.find((p) => p.id === stealTarget);
-      return `✅ Stoppen — steel ${sum} van ${target?.name}`;
+      return `✅ Steel ${sum} van ${target?.name}`;
     }
-    return `✅ Stoppen — pak tegel ${rowTile}`;
+    return `✅ Pak tegel ${rowTile}`;
   })();
 
   function handleRoll() {
