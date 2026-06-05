@@ -142,7 +142,7 @@ export default function GameTable({ gameState, playerId, error, onClearError }: 
         )}
 
         {isMyTurn && turn.phase === "picking" && picks.length > 0 && (
-          <p className="pick-hint">Klik op een waarde hierboven om te kiezen.</p>
+          <p className="pick-hint">Apart leggen ↑</p>
         )}
 
         {!isMyTurn && (
