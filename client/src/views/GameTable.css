@@ -20,8 +20,10 @@
   display: flex;
   gap: .35rem;
   flex-shrink: 0;
+  align-items: center;
 }
-.game-table-footer button { flex: 1; }
+.game-table-footer > :not(.logout-btn--game) { flex: 1; }
+.game-table-footer .logout-btn--game { flex: 0; }
 
 /* TileRow: vast, niet groeiend */
 .game-table > .game-table-header { flex-shrink: 0; }
@@ -146,19 +148,22 @@
 .logout-btn:hover { background: rgba(198,40,40,.3); }
 .logout-btn:active { transform: scale(.9); }
 
-/* Logout knop in game footer: rode dobbelstenen-stijl */
+/* Logout knop in game footer: minimaal */
 .logout-btn--game {
-  width: auto;
-  height: auto;
-  padding: .4rem .9rem;
-  background: linear-gradient(135deg, #ef5350, #d32f2f);
-  border: 3px solid #b71c1c;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: #ef5350;
+  border: 2px solid #b71c1c;
   color: #fff;
-  font-size: 1rem;
+  font-size: .9rem;
   font-weight: 800;
-  border-radius: 14px;
-  box-shadow: 0 5px 14px rgba(139, 0, 0, 0.4), inset 0 -2px 0 #5f0000, inset 0 1px 0 rgba(255,255,255,.2);
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(139, 0, 0, 0.3);
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.logout-btn--game:hover { background: linear-gradient(135deg, #d32f2f, #c62828); }
-.logout-btn--game:active { transform: scale(.95); }
+.logout-btn--game:hover { background: #d32f2f; }
+.logout-btn--game:active { transform: scale(.9); }
