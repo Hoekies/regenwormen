@@ -43,7 +43,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding: .35rem var(--pad) .2rem;
+  padding: .35rem clamp(.5rem, 5vw, 1.5rem) .2rem;
 }
 
 /* ── Knoppen ─────────────────────────────── */
@@ -52,9 +52,9 @@ button {
   cursor: pointer;
   border: none;
   border-radius: 14px;
-  font-size: 1rem;
+  font-size: max(16px, 1rem);
   font-weight: 700;
-  padding: .55rem 1rem;
+  padding: clamp(.55rem, 1.5vmin, .75rem) clamp(1rem, 2vw, 1.5rem);
   transition: transform 80ms, box-shadow 80ms;
   min-height: 44px;
 }
