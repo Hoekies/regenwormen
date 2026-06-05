@@ -142,9 +142,6 @@ export default function GameTable({ gameState, playerId, error, onClearError }: 
           </div>
         )}
 
-        {isMyTurn && turn.phase === "picking" && picks.length > 0 && (
-          <p className="pick-hint">Apart leggen ↑</p>
-        )}
 
         {!isMyTurn && (
           <p className="waiting-msg">Wachten op {currentPlayer.name}…</p>
