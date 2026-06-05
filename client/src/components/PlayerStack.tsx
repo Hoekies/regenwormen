@@ -8,12 +8,13 @@ interface PlayerStackProps {
   playerIndex: number;
   isActive: boolean;
   isMe: boolean;
+  compact?: boolean;
 }
 
-export default function PlayerStack({ player, playerIndex, isActive, isMe }: PlayerStackProps) {
+export default function PlayerStack({ player, playerIndex, isActive, isMe, compact = false }: PlayerStackProps) {
   const worms = scoreWorms(player);
   return (
-    <div className={`player-stack ${isActive ? "active" : ""} ${isMe ? "me" : ""}`}>
+    <div className={`player-stack ${isActive ? "active" : ""} ${isMe ? "me" : ""} ${compact ? "compact" : ""}`}>
       <div className="stack-header">
         <img src={wormAvatar(playerIndex)} alt="" className="stack-avatar" />
         <span className="stack-name">{player.name}</span>
@@ -24,22 +25,24 @@ export default function PlayerStack({ player, playerIndex, isActive, isMe }: Pla
         {isMe && <span className="me-badge">jij</span>}
       </div>
 
-      <div className="stack-tiles">
-        {player.tiles.length === 0 ? (
-          <span className="no-tiles">Geen tegels</span>
-        ) : (
-          player.tiles.map((t, i) => (
-            <span key={i} className={`stack-tile ${i === 0 ? "top" : ""}`}>
-              {t}
-              <span className="tile-mini-worms">
-                {Array.from({ length: wormsOnTile(t) }, (_, wi) => (
-                  <img key={wi} src="/img/worm3.png" alt="" className="mini-worm-img" />
-                ))}
+      {!compact && (
+        <div className="stack-tiles">
+          {player.tiles.length === 0 ? (
+            <span className="no-tiles">Geen tegels</span>
+          ) : (
+            player.tiles.map((t, i) => (
+              <span key={i} className={`stack-tile ${i === 0 ? "top" : ""}`}>
+                {t}
+                <span className="tile-mini-worms">
+                  {Array.from({ length: wormsOnTile(t) }, (_, wi) => (
+                    <img key={wi} src="/img/worm3.png" alt="" className="mini-worm-img" />
+                  ))}
+                </span>
               </span>
-            </span>
-          ))
-        )}
-      </div>
+            ))
+          )}
+        </div>
+      )}
     </div>
   );
 }

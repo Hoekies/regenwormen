@@ -9,8 +9,10 @@
   padding: clamp(.45rem, 2vmin, .75rem) clamp(.55rem, 2vw, 1rem);
   border: 2.5px solid #d5c9b6;
   min-width: 0;
-  flex: 1;
   box-shadow: 0 3px 8px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.8);
+}
+.player-stack.compact {
+  padding: clamp(.35rem, 1.5vmin, .6rem) clamp(.45rem, 1.5vw, .8rem);
 }
 .player-stack.active {
   border: 2.5px solid #ff9100;

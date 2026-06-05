@@ -99,6 +99,7 @@ export default function GameTable({ gameState, playerId, error, onClearError }: 
                 playerIndex={i}
                 isActive={i === currentPlayerIndex}
                 isMe={p.id === playerId}
+                compact={true}
               />
             ))}
           </div>

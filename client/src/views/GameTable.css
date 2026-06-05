@@ -62,13 +62,18 @@
 }
 .game-table-footer .logout-btn--game { flex: 0; }
 
-/* Spelers-rij: vast, niet groeiend */
+/* Spelers-rij: max 3 per rij */
 .players-row {
   display: flex;
   flex-wrap: wrap;
   gap: .3rem;
   flex-shrink: 0;
   justify-content: center;
+  max-width: 100%;
+}
+.players-row > * {
+  flex: 0 1 calc(33.333% - 0.2rem);
+  min-width: 0;
 }
 
 .turn-info {
