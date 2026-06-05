@@ -9,7 +9,7 @@
 }
 .lobby-card {
   width: 100%;
-  max-width: 460px;
+  max-width: clamp(360px, 90vw, 600px);
   position: relative;
 }
 
