@@ -43,7 +43,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding: .5rem var(--pad) .5rem;
+  padding: .35rem var(--pad) .2rem;
 }
 
 /* ── Knoppen ─────────────────────────────── */

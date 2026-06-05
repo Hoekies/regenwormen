@@ -1,9 +1,10 @@
 .app-footer {
   text-align: center;
-  font-size: .72rem;
+  font-size: .65rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, .45);
-  letter-spacing: .06rem;
-  padding: .3rem 0 0;
+  color: rgba(255, 255, 255, .4);
+  letter-spacing: .05rem;
+  padding: .1rem 0 0;
   flex-shrink: 0;
+  line-height: 1;
 }
