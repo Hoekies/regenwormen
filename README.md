@@ -1,16 +1,25 @@
 # 🪱 Hoekies Regenwormen
 
-Online multiplayer versie van het dobbelspel **Regenwormen** van 999 Games — voor 2 tot 7 spelers op eigen apparaat, via een room-code.
+Online multiplayer versie van het dobbelspel **Regenwormen** van 999 Games — voor 2 tot 7 spelers op eigen apparaat, via spel-codes. Speelt soepel op telefoon en desktop, met automatische reconnectie.
+
+**Live:** https://hoekies-regenwormen.vercel.app/
 
 ---
 
-## 🎮 Spelen
+## 🎮 Hoe te spelen (online)
 
-1. Open de app in je browser
-2. Vul je naam in en maak een room aan — je krijgt een 4-letter code
-3. Deel de code met andere spelers — zij joinen op hun eigen telefoon of laptop
-4. De host drukt op **START!**
-5. Speel!
+### Spel starten
+1. Open de app
+2. Vul je naam in → druk **Spel starten**
+3. Je krijgt een 4-letter spel-code
+4. Deel deze code met andere spelers (via WhatsApp, etc.)
+5. Zij vullen hun naam in, voegen de spel-code in, en drukken **Joinen**
+
+### In het spel
+1. Wacht tot iedereen gejoint is (max. 7 spelers)
+2. De host (jij) drukt **START!**
+3. Speel totdat alle tegels weg zijn
+4. Wie de meeste wormen heeft, wint 🏆
 
 ---
 
@@ -70,27 +79,83 @@ Het spel eindigt als er geen open tegels meer in het midden liggen.
 
 ---
 
-## 🚀 Online zetten
+## 🚀 Zelf hosten
 
-De app bestaat uit twee delen die apart gehost worden:
+De app bestaat uit twee delen (monorepo met npm workspaces):
 
-| Deel | Waar | Wat |
-|------|------|-----|
-| **Client** | [Vercel](https://vercel.com) | Statische React-app |
-| **Server** | [Railway](https://railway.app) | Socket.IO server |
+| Deel | Hosting | Tech |
+|------|---------|------|
+| **Client** | [Vercel](https://vercel.com) | React + Vite (TypeScript) |
+| **Server** | [Render](https://render.com) | Node.js + Socket.IO |
 
-### Stap 1 — Server op Railway
-1. Maak een nieuw project op Railway, koppel deze GitHub repo
-2. Stel de **root directory** in op `server/`
-3. Start-commando: `npm install && npm run build && npm start`
-4. Kopieer de publieke URL (bijv. `https://regenwormen-server.railway.app`)
+### Stap 1 — Server op Render
+1. Maak een nieuw **Web Service** op Render, verbind deze GitHub repo
+2. Stel **Start Command** in: `npm install && npm start --workspace=server`
+3. Zet **Root Directory** op `/` (niet `server/`)
+4. Kopieer de publieke URL (bijv. `https://regenwormen-server.onrender.com`)
 
 ### Stap 2 — Client op Vercel
 1. Importeer deze repo op Vercel
-2. Voeg een **Environment Variable** toe:
+2. Stel **Root Directory** in op `client/`
+3. Voeg **Environment Variable** toe:
    - Naam: `VITE_SERVER_URL`
-   - Waarde: de Railway-URL uit stap 1
-3. Deploy — Vercel pakt automatisch `vercel.json` op
+   - Waarde: de Render-URL uit stap 1
+4. Deploy — Vercel gebruikt `vercel.json` en `client/index.html` automatisch
+
+### Lokaal draaien
+```bash
+npm install                 # Install all dependencies
+npm run dev                 # Start both server + client (Concurrently)
+```
+- Client draait op `http://localhost:5174`
+- Server draait op `http://localhost:3001`
+
+---
+
+## ✨ Features
+
+- **Realtime multiplayer**: Socket.IO voor live synchronisatie
+- **Mobile-friendly**: Volledig responsive, SafeArea support voor notches
+- **Reconnectie**: Automatisch herstellen van verbinding (tot 20 pogingen, 60s window)
+- **Persistentie**: localStorage sessies, zodat je terug kunt joinen na reconnect
+- **Geluid**: Intro-muziek + dobbelsteen geluidseffecten
+- **WhatsApp delen**: Directe link naar delen via WhatsApp met preview
+- **Responsive design**: 100dvh fullscreen, geen scrolling op mobiel
+
+---
+
+## 🛠️ Tech Stack
+
+| Laag | Technologie |
+|------|------------|
+| **Frontend** | React 18, TypeScript, Vite, CSS Grid |
+| **Backend** | Node.js, Express, Socket.IO, TypeScript |
+| **State** | Server-authoritative, pure functions (immutable rules) |
+| **Deployment** | Vercel (client), Render (server) |
+
+---
+
+## 📄 Projectstructuur
+
+```
+.
+├── packages/
+│   └── shared/              # Gedeelde types + spelregels
+│       ├── types.ts         # GameState, Player, events
+│       └── rules.ts         # Pure game logic (no side effects)
+├── client/                  # React + Vite webapp
+│   ├── src/
+│   │   ├── views/           # Lobby, GameTable, Finished
+│   │   ├── components/      # DiceButton, TileRow, PlayerStack
+│   │   └── hooks/           # useIntroAudio, useDiceSound
+│   └── public/img/          # Worm avatars, tegels, geluid
+├── server/                  # Node.js + Socket.IO
+│   ├── src/
+│   │   ├── index.ts         # Express + Socket.IO setup
+│   │   ├── gameSocket.ts    # Event handlers
+│   │   └── rooms.ts         # Room state management
+└── vercel.json, render.yaml # Deployment config
+```
 
 ---
 
@@ -101,3 +166,4 @@ MIT — vrij te gebruiken en aan te passen.
 ---
 
 *Gebaseerd op het bordspel Regenwormen van 999 Games / Zoch Verlag.*
+*Gebouwd met ❤️ door Hoekies.*
