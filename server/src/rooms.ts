@@ -51,6 +51,8 @@ export function joinRoom(
   if (!room) return null;
   if (room.state.phase !== "lobby") return null;
   if (room.state.players.length >= 7) return null;
+  // Controleer of dezelfde naam al in room zit
+  if (room.state.players.some((p) => p.name === playerName)) return null;
 
   const playerId = generateId();
   const player: Player = { id: playerId, name: playerName, tiles: [] };

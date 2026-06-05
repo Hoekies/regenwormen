@@ -51,7 +51,16 @@ export function registerHandlers(io: IoServer, socket: IoSocket): void {
     }
     const result = joinRoom(socket.id, code, playerName.trim());
     if (!result) {
-      socket.emit("error", { message: "Room niet gevonden of spel al gestart." });
+      const state = getState(code);
+      if (!state) {
+        socket.emit("error", { message: "Room niet gevonden." });
+      } else if (state.phase !== "lobby") {
+        socket.emit("error", { message: "Spel al gestart." });
+      } else if (state.players.length >= 7) {
+        socket.emit("error", { message: "Room vol (max 7 spelers)." });
+      } else {
+        socket.emit("error", { message: "Naam al in gebruik in deze room." });
+      }
       return;
     }
     socket.join(code);
