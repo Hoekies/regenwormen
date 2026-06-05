@@ -38,11 +38,12 @@ body {
 
 #root {
   width: 100%;
+  max-width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding: .35rem clamp(1rem, 3vw, 2rem) .2rem;
+  padding: .35rem clamp(1.5rem, 2vw, 3rem) .2rem;
 }
 
 /* ── Knoppen ─────────────────────────────── */
