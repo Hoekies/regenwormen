@@ -95,6 +95,7 @@
   padding: .2rem .6rem;
   border-radius: 8px;
   border-left: 4px solid #66bb6a;
+  text-align: center;
 }
 .worm-ok { color: #2e7d32; }
 
