@@ -6,7 +6,7 @@
 .player-stack {
   background: linear-gradient(to bottom, #fafaf8, #f5f0e8);
   border-radius: 12px;
-  padding: .45rem .55rem;
+  padding: clamp(.45rem, 2vmin, .75rem) clamp(.55rem, 2vw, 1rem);
   border: 2.5px solid #d5c9b6;
   min-width: 0;
   flex: 1;
