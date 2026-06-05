@@ -80,11 +80,13 @@ export default function GameTable({ gameState, playerId, error, onClearError }: 
   return (
     <div className="game-table">
       <EventOverlay event={gameState.lastEvent} />
+
+      {/* Top: Tegels */}
       <div className="game-table-header">
         <TileRow tiles={tiles} closedTiles={gameState.closedTiles} />
-        <button className="logout-btn" onClick={handleLogout} title="Spel verlaten">✕</button>
       </div>
 
+      {/* Middle: Spelers + Beurt-info */}
       <div className="players-row">
         {players.map((p, i) => (
           <PlayerStack
@@ -132,8 +134,21 @@ export default function GameTable({ gameState, playerId, error, onClearError }: 
           </div>
         )}
 
+        {isMyTurn && turn.phase === "picking" && picks.length > 0 && (
+          <p className="pick-hint">Klik op een waarde hierboven om te kiezen.</p>
+        )}
+
+        {!isMyTurn && (
+          <p className="waiting-msg">Wachten op {currentPlayer.name}…</p>
+        )}
+
+        {error && <p className="error-msg">{error}</p>}
+      </div>
+
+      {/* Bottom: Gooi + Logout */}
+      <div className="game-table-footer">
         {isMyTurn && (
-          <div className="action-row">
+          <>
             {canRoll && (
               <DiceButton
                 count={turn.dicePool.length}
@@ -149,17 +164,9 @@ export default function GameTable({ gameState, playerId, error, onClearError }: 
                 {stopLabel}
               </button>
             )}
-            {turn.phase === "picking" && picks.length > 0 && (
-              <p className="pick-hint">Klik op een waarde hierboven om te kiezen.</p>
-            )}
-          </div>
+          </>
         )}
-
-        {!isMyTurn && (
-          <p className="waiting-msg">Wachten op {currentPlayer.name}…</p>
-        )}
-
-        {error && <p className="error-msg">{error}</p>}
+        <button className="logout-btn logout-btn--game" onClick={handleLogout} title="Spel verlaten">✕</button>
       </div>
     </div>
   );

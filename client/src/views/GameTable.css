@@ -8,16 +8,23 @@
   min-height: 0;
 }
 
-/* Header met TileRow + logout */
+/* Header: alleen TileRow, bovenaan */
 .game-table-header {
   display: flex;
-  gap: .4rem;
-  align-items: flex-start;
+  justify-content: center;
   flex-shrink: 0;
 }
 
+/* Footer: Gooi + Logout, onderaan */
+.game-table-footer {
+  display: flex;
+  gap: .35rem;
+  flex-shrink: 0;
+}
+.game-table-footer button { flex: 1; }
+
 /* TileRow: vast, niet groeiend */
-.game-table > :first-child { flex-shrink: 0; }
+.game-table > .game-table-header { flex-shrink: 0; }
 
 /* Spelers-rij: vast, niet groeiend */
 .players-row {
@@ -138,3 +145,20 @@
 }
 .logout-btn:hover { background: rgba(198,40,40,.3); }
 .logout-btn:active { transform: scale(.9); }
+
+/* Logout knop in game footer: rode dobbelstenen-stijl */
+.logout-btn--game {
+  width: auto;
+  height: auto;
+  padding: .4rem .9rem;
+  background: linear-gradient(135deg, #ef5350, #d32f2f);
+  border: 3px solid #b71c1c;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 800;
+  border-radius: 14px;
+  box-shadow: 0 5px 14px rgba(139, 0, 0, 0.4), inset 0 -2px 0 #5f0000, inset 0 1px 0 rgba(255,255,255,.2);
+  flex-shrink: 0;
+}
+.logout-btn--game:hover { background: linear-gradient(135deg, #d32f2f, #c62828); }
+.logout-btn--game:active { transform: scale(.95); }

@@ -6,21 +6,23 @@
   box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 3px 8px rgba(0,0,0,.08);
 }
 .tile-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .22rem;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: .25rem;
+  max-height: 130px;
+  align-content: start;
 }
 .tile {
-  width: 40px;
-  height: 50px;
-  border-radius: 8px;
+  width: 50px;
+  height: 63px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-weight: 700;
   background: #e8e0d0;
-  border: 2.5px solid #c8b89a;
+  border: 3px solid #c8b89a;
   color: #bbb;
   transition: transform .2s cubic-bezier(.34,1.56,.64,1);
 }
@@ -38,17 +40,17 @@
   opacity: .3;
   filter: grayscale(80%);
 }
-.tile-num { font-size: .82rem; line-height: 1; }
+.tile-num { font-size: 1rem; line-height: 1; }
 .tile-worm-icons {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1px;
+  gap: 2px;
   margin-top: 2px;
 }
 .tile-worm-img {
-  width: 12px;
-  height: 12px;
+  width: 15px;
+  height: 15px;
   object-fit: contain;
   filter: drop-shadow(0 1px 1px rgba(0,0,0,.12));
 }

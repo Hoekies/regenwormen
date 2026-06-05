@@ -16,7 +16,7 @@ export default function DiceButton({ count, onClick, disabled, rolling }: DiceBu
       title={`Gooien (${count} ${count === 1 ? "steen" : "stenen"})`}
     >
       <div className="dice-btn-inner">
-        <div className="dice-btn-text">DOBBELEN</div>
+        <div className="dice-btn-text">GOOI</div>
         <div className="dice-btn-count">{count}</div>
       </div>
       <div className="dice-btn-deco">
