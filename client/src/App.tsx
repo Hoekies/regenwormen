@@ -123,17 +123,14 @@ export default function App() {
 
   if (state.screen === "home" || state.screen === "lobby") {
     return (
-      <>
-        <Lobby
-          screen={state.screen}
-          roomCode={state.roomCode}
-          playerId={state.playerId}
-          gameState={state.gameState}
-          error={state.error}
-          onClearError={clearError}
-        />
-        <Footer />
-      </>
+      <Lobby
+        screen={state.screen}
+        roomCode={state.roomCode}
+        playerId={state.playerId}
+        gameState={state.gameState}
+        error={state.error}
+        onClearError={clearError}
+      />
     );
   }
   if (state.screen === "game" && state.gameState) {
@@ -158,9 +155,6 @@ export default function App() {
     );
   }
   return (
-    <>
-      <Lobby screen="home" roomCode="" playerId="" gameState={null} error="" onClearError={() => {}} />
-      <Footer />
-    </>
+    <Lobby screen="home" roomCode="" playerId="" gameState={null} error="" onClearError={() => {}} />
   );
 }
