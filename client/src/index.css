@@ -43,7 +43,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding: .35rem clamp(1.5rem, 2vw, 3rem) .2rem;
+  padding: .35rem clamp(.5rem, 1vw, 1.2rem) .2rem;
 }
 
 /* ── Knoppen ─────────────────────────────── */
