@@ -17,9 +17,9 @@
   flex-direction: column;
   border-radius: 20px !important;
   padding: .5rem !important;
-  border: 3px solid #ff9100 !important;
+  border: 3px solid #d5c9b6 !important;
   background: linear-gradient(to bottom, #fffdf7, #fff8e1) !important;
-  box-shadow: 0 8px 30px rgba(255,145,0,.2), inset 0 1px 0 rgba(255,255,255,.8) !important;
+  box-shadow: 0 8px 16px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.8) !important;
 }
 
 .game-card-section {
