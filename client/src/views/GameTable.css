@@ -49,7 +49,16 @@
   flex-shrink: 0;
   align-items: stretch;
 }
-.game-table-footer > :not(.logout-btn--game) { flex: 1; min-height: 52px; }
+.game-table-footer > :not(.logout-btn--game) {
+  flex: 1;
+  min-height: 52px;
+  font-size: 1rem !important;
+  padding: .6rem 1rem !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
 .game-table-footer .logout-btn--game { flex: 0; }
 
 /* Spelers-rij: vast, niet groeiend */

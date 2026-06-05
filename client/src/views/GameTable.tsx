@@ -37,15 +37,7 @@ export default function GameTable({ gameState, playerId, error, onClearError }: 
   // Toon preview wat er gaat gebeuren bij stoppen
   const stealTarget = worm ? findStealTarget(sum, players, currentPlayer.id) : null;
   const rowTile = worm ? claimableTile(sum, tiles) : null;
-  const stopLabel = (() => {
-    if (!worm || (!rowTile && !stealTarget)) return "✅ Stoppen (bust!)";
-    if (rowTile === sum && stealTarget) return `✅ Pak tegel ${sum}`;
-    if (stealTarget) {
-      const target = players.find((p) => p.id === stealTarget);
-      return `✅ Steel ${sum} van ${target?.name}`;
-    }
-    return `✅ Pak tegel ${rowTile}`;
-  })();
+  const stopLabel = "✅ Stop";
 
   function handleRoll() {
     setRolling(true);
