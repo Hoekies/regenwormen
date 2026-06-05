@@ -110,50 +110,56 @@ export default function Lobby({ screen, roomCode, playerId, gameState, error, on
         </div>
         <p className="lobby-sub">Online dobbelspel voor 2–7 spelers</p>
 
-        <div className="form-group">
-          <label>Jouw naam</label>
-          <input
-            type="text"
-            placeholder="bijv. René"
-            value={name}
-            maxLength={20}
-            onChange={(e) => setName(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && (tab === "create" ? handleCreate() : handleJoin())}
-          />
-        </div>
-
-        <div className="tab-row">
-          <button className={`tab-btn ${tab === "create" ? "active" : ""}`} onClick={() => setTab("create")}>
-            Room maken
-          </button>
-          <button className={`tab-btn ${tab === "join" ? "active" : ""}`} onClick={() => setTab("join")}>
-            Joinen
-          </button>
-        </div>
-
-        {tab === "join" && (
-          <div className="form-group">
-            <label>Room-code</label>
-            <input
-              type="text"
-              placeholder="bijv. WXYZ"
-              value={joinCode}
-              maxLength={4}
-              onChange={(e) => setJoinCode(e.target.value.toUpperCase())}
-              onKeyDown={(e) => e.key === "Enter" && handleJoin()}
-            />
+        <div className="form-section">
+          <div className="form-half">
+            <h3 className="form-title">Spel starten</h3>
+            <div className="form-group">
+              <label>Jouw naam</label>
+              <input
+                type="text"
+                placeholder="bijv. René"
+                value={name}
+                maxLength={20}
+                onChange={(e) => setName(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleCreate()}
+              />
+            </div>
+            <button className="btn-primary action-btn" onClick={handleCreate} disabled={!name.trim()}>
+              Room aanmaken
+            </button>
           </div>
-        )}
 
-        {tab === "create" ? (
-          <button className="btn-primary action-btn" onClick={handleCreate} disabled={!name.trim()}>
-            Room aanmaken
-          </button>
-        ) : (
-          <button className="btn-secondary action-btn" onClick={handleJoin} disabled={!name.trim() || !joinCode.trim()}>
-            Joinen
-          </button>
-        )}
+          <div className="form-divider"></div>
+
+          <div className="form-half">
+            <h3 className="form-title">Lid worden</h3>
+            <div className="form-group">
+              <label>Jouw naam</label>
+              <input
+                type="text"
+                placeholder="bijv. René"
+                value={name}
+                maxLength={20}
+                onChange={(e) => setName(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && !joinCode.trim() ? null : handleJoin()}
+              />
+            </div>
+            <div className="form-group">
+              <label>Room-code</label>
+              <input
+                type="text"
+                placeholder="bijv. WXYZ"
+                value={joinCode}
+                maxLength={4}
+                onChange={(e) => setJoinCode(e.target.value.toUpperCase())}
+                onKeyDown={(e) => e.key === "Enter" && handleJoin()}
+              />
+            </div>
+            <button className="btn-secondary action-btn" onClick={handleJoin} disabled={!name.trim() || !joinCode.trim()}>
+              Joinen
+            </button>
+          </div>
+        </div>
 
         <div className="deco-bottom-row">
           <img src="/img/worm1.png" alt="" className="deco-worm" aria-hidden="true" />
