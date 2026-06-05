@@ -46,31 +46,11 @@
 
 .lobby-sub { text-align: center; color: #666; margin-bottom: 1.5rem; font-size: 1rem; }
 
-.form-section {
-  display: flex;
-  gap: 1.2rem;
-  margin-bottom: 1rem;
-}
-
-.form-half {
-  flex: 1;
+.form-section-single {
   display: flex;
   flex-direction: column;
   gap: .8rem;
-}
-
-.form-divider {
-  width: 2px;
-  background: linear-gradient(180deg, transparent, #ff9100, transparent);
-  flex-shrink: 0;
-}
-
-.form-title {
-  font-size: .95rem;
-  font-weight: 800;
-  color: #ff6f00;
-  margin: 0;
-  text-align: center;
+  margin-bottom: 1rem;
 }
 
 .form-group { margin-bottom: .8rem; }

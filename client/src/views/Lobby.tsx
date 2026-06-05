@@ -63,7 +63,7 @@ export default function Lobby({ screen, roomCode, playerId, gameState, error, on
           <img src="/img/logo.png" alt="Wormen" className="lobby-logo" />
 
           <div className="room-code-display">
-            <span className="room-label">Room-code</span>
+            <span className="room-label">Spel-code</span>
             <div className="room-code-row">
               <span className="room-code">{roomCode}</span>
               <WhatsAppButton text={`Speel mee met Hoekies Wormen! 🪱\nJoin met code: ${roomCode}\n${window.location.href}`} />
@@ -110,58 +110,40 @@ export default function Lobby({ screen, roomCode, playerId, gameState, error, on
         </div>
         <p className="lobby-sub">Online dobbelspel voor 2–7 spelers</p>
 
-        <div className="form-section">
-          <div className="form-half">
-            <h3 className="form-title">🎮 Spel starten</h3>
-            <div className="form-group">
-              <label>Jouw naam</label>
-              <input
-                type="text"
-                placeholder="bijv. René"
-                value={tab === "create" ? name : ""}
-                maxLength={20}
-                onChange={(e) => tab === "create" && setName(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && tab === "create" && handleCreate()}
-                disabled={tab !== "create"}
-              />
-            </div>
-            <button className="btn-primary action-btn" onClick={handleCreate} disabled={tab !== "create" || !name.trim()}>
-              Room aanmaken
-            </button>
+        <div className="form-section-single">
+          <div className="form-group">
+            <label>Jouw naam</label>
+            <input
+              type="text"
+              placeholder="bijv. René"
+              value={name}
+              maxLength={20}
+              onChange={(e) => setName(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && (joinCode.trim() ? handleJoin() : handleCreate())}
+            />
           </div>
 
-          <div className="form-divider"></div>
+          <div className="form-group">
+            <label>Spel-code (optioneel)</label>
+            <input
+              type="text"
+              placeholder="bijv. WXYZ"
+              value={joinCode}
+              maxLength={4}
+              onChange={(e) => setJoinCode(e.target.value.toUpperCase())}
+              onKeyDown={(e) => e.key === "Enter" && (joinCode.trim() ? handleJoin() : handleCreate())}
+            />
+          </div>
 
-          <div className="form-half">
-            <h3 className="form-title">👥 Lid worden</h3>
-            <div className="form-group">
-              <label>Jouw naam</label>
-              <input
-                type="text"
-                placeholder="bijv. René"
-                value={tab === "join" ? name : ""}
-                maxLength={20}
-                onChange={(e) => tab === "join" && setName(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && tab === "join" && handleJoin()}
-                disabled={tab !== "join"}
-              />
-            </div>
-            <div className="form-group">
-              <label>Room-code</label>
-              <input
-                type="text"
-                placeholder="bijv. WXYZ"
-                value={tab === "join" ? joinCode : ""}
-                maxLength={4}
-                onChange={(e) => tab === "join" && setJoinCode(e.target.value.toUpperCase())}
-                onKeyDown={(e) => e.key === "Enter" && tab === "join" && handleJoin()}
-                disabled={tab !== "join"}
-              />
-            </div>
-            <button className="btn-secondary action-btn" onClick={handleJoin} disabled={tab !== "join" || !name.trim() || !joinCode.trim()}>
+          {joinCode.trim() ? (
+            <button className="btn-secondary action-btn" onClick={handleJoin} disabled={!name.trim() || !joinCode.trim()}>
               Joinen
             </button>
-          </div>
+          ) : (
+            <button className="btn-primary action-btn" onClick={handleCreate} disabled={!name.trim()}>
+              Spel starten
+            </button>
+          )}
         </div>
 
         <div className="deco-bottom-row">
