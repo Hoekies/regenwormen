@@ -1,18 +1,19 @@
 .dice-row {
   display: flex;
   flex-wrap: wrap;
-  gap: .35rem;
+  gap: .4rem;
   margin: .4rem 0;
 }
+
 .die {
-  width: 46px;
-  height: 46px;
-  font-size: 1.4rem;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
   font-weight: 800;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #fff, #f0f0f0);
+  border-radius: 12px;
+  background: linear-gradient(145deg, #ffffff, #e8e8e8);
   border: 3px solid #999;
-  color: #333;
+  color: #222;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,27 +22,44 @@
   user-select: none;
   min-width: 44px;
   min-height: 44px;
-  box-shadow: 0 4px 10px rgba(0,0,0,.14), inset 0 -2px 0 #bdbdbd, inset 0 1px 0 rgba(255,255,255,.9);
+  box-shadow: 0 5px 12px rgba(0,0,0,.18), inset 0 -3px 0 #aaa, inset 0 2px 0 rgba(255,255,255,.95);
+  position: relative;
 }
+
 .die.worm {
-  background: linear-gradient(135deg, #c8e6c9, #a5d6a7);
-  border-color: #2e7d32;
-  font-size: 1.6rem;
-  box-shadow: 0 4px 10px rgba(102,187,106,.3), inset 0 -2px 0 #2e7d32, inset 0 1px 0 rgba(255,255,255,.8);
+  background: linear-gradient(145deg, #d4f5d4, #a8e6a8);
+  border-color: #27ae60;
+  font-size: 1.7rem;
+  box-shadow: 0 5px 14px rgba(39,174,96,.35), inset 0 -3px 0 #1e8449, inset 0 2px 0 rgba(255,255,255,.9);
 }
+
 .die.selectable {
-  background: linear-gradient(135deg, #fff9e6, #ffe0b2);
+  background: linear-gradient(145deg, #fff9e6, #ffcc66);
   border-color: #ff9100;
   cursor: pointer;
-  box-shadow: 0 6px 16px rgba(255,145,0,.38), inset 0 -2px 0 #e65100, inset 0 1px 0 rgba(255,255,255,.9);
+  box-shadow: 0 6px 22px rgba(255,145,0,.5), inset 0 -3px 0 #e65100, inset 0 2px 0 rgba(255,255,255,.95);
+  transform: translateY(-3px);
 }
-.die.selectable:hover  { transform: translateY(-5px) scale(1.08); }
-.die.selectable:active { transform: scale(.94); }
+.die.selectable:hover {
+  transform: translateY(-7px) scale(1.12);
+  box-shadow: 0 12px 32px rgba(255,145,0,.6), inset 0 -3px 0 #e65100, inset 0 2px 0 rgba(255,255,255,.95);
+}
+.die.selectable:active { transform: scale(.93); }
 
-@keyframes shake {
-  0%,100% { transform: rotate(0) scale(1); }
-  20%  { transform: rotate(-13deg) scale(1.05); }
-  50%  { transform: rotate(11deg) scale(1.05); }
-  80%  { transform: rotate(-7deg) scale(1.02); }
+@keyframes dice-tumble {
+  0%   { transform: rotate(0deg)    translateY(0)      scale(1);    filter: blur(0px); }
+  10%  { transform: rotate(-20deg)  translateY(-8px)   scale(1.15); filter: blur(1.5px); }
+  25%  { transform: rotate(22deg)   translateY(-4px)   scale(1.12); filter: blur(2.5px); }
+  40%  { transform: rotate(-28deg)  translateY(-14px)  scale(1.25); filter: blur(2px); }
+  55%  { transform: rotate(18deg)   translateY(-5px)   scale(1.14); filter: blur(1.5px); }
+  68%  { transform: rotate(-12deg)  translateY(-9px)   scale(1.08); filter: blur(.8px); }
+  80%  { transform: rotate(7deg)    translateY(-3px)   scale(1.04); filter: blur(.3px); }
+  92%  { transform: rotate(-3deg)   translateY(-1px)   scale(1.01); filter: blur(.1px); }
+  100% { transform: rotate(0deg)    translateY(0)      scale(1);    filter: blur(0px); }
 }
-.die.rolling { animation: shake 380ms cubic-bezier(.68,.55,.265,1.55); }
+
+.die.rolling {
+  animation: dice-tumble 380ms cubic-bezier(.36,.07,.19,.97) both;
+  pointer-events: none;
+  cursor: default !important;
+}

@@ -1,6 +1,7 @@
 import type { GameState } from "@regenvormen/shared";
 import { scoreWorms } from "@regenvormen/shared";
 import { wormAvatar, WORM_WINNER, WORM_CRY, WORM_DEAD } from "../wormAvatar";
+import Confetti from "../components/Confetti";
 import socket from "../socket";
 import "./Finished.css";
 
@@ -24,8 +25,9 @@ export default function Finished({ gameState, playerId }: Props) {
 
   return (
     <div className="finished-container">
-      <div className={`finished-card card ${iWon ? "card-win" : "card-lose"}`}>
+      {iWon && <Confetti />}
 
+      <div className={`finished-card card ${iWon ? "card-win" : "card-lose"}`}>
         <img
           src={iWon ? "/img/victory.png" : "/img/gameover.png"}
           alt={iWon ? "Victory!" : "Game Over"}
@@ -34,18 +36,16 @@ export default function Finished({ gameState, playerId }: Props) {
 
         <div className="finished-hero">
           {iWon ? (
-            /* Winnaar: kroonworm + schatkist */
             <>
-              <img src={WORM_WINNER} alt="" className="finished-hero-worm" />
+              <img src={WORM_WINNER} alt="" className="finished-hero-worm bounce" />
               <div className="finished-hero-center">
                 <p className="finished-subtitle win">Gefeliciteerd!</p>
-                <img src="/img/schatkist.png" alt="" className="finished-hero-item" />
+                <img src="/img/schatkist.png" alt="" className="finished-hero-item spin-slow" />
               </div>
             </>
           ) : (
-            /* Verliezer: huilende worm + grafje */
             <>
-              <img src={WORM_CRY} alt="" className="finished-hero-worm" />
+              <img src={WORM_CRY} alt="" className="finished-hero-worm wobble" />
               <div className="finished-hero-center">
                 <p className="finished-subtitle lose">{winner?.name ?? "?"} wint!</p>
                 <img src={WORM_DEAD} alt="" className="finished-hero-item" />
@@ -69,7 +69,7 @@ export default function Finished({ gameState, playerId }: Props) {
               const isWinner = p.id === gameState.winner;
               return (
                 <tr key={p.id} className={`${p.id === playerId ? "me" : ""} ${isWinner ? "winner-row" : ""}`}>
-                  <td>{i + 1}</td>
+                  <td>{i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : i + 1}</td>
                   <td className="name-cell">
                     <img
                       src={isWinner ? WORM_WINNER : wormAvatar(origIdx)}
@@ -88,7 +88,7 @@ export default function Finished({ gameState, playerId }: Props) {
         </table>
 
         <button className="btn-primary new-btn" onClick={handleNewGame}>
-          Nieuw spel
+          🎲 Nieuw spel
         </button>
       </div>
     </div>

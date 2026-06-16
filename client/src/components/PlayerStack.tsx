@@ -14,7 +14,7 @@ interface PlayerStackProps {
 export default function PlayerStack({ player, playerIndex, isActive, isMe, compact = false }: PlayerStackProps) {
   const worms = scoreWorms(player);
   return (
-    <div className={`player-stack ${isActive ? "active" : ""} ${isMe ? "me" : ""} ${compact ? "compact" : ""}`}>
+    <div className={`player-stack ${isActive ? "active" : ""} ${isMe ? "me" : ""} ${compact ? "compact" : ""}`} data-pi={playerIndex % 7}>
       <div className="stack-header">
         <img src={wormAvatar(playerIndex)} alt="" className="stack-avatar" />
         <span className="stack-name">{player.name}</span>

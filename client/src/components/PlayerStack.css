@@ -1,29 +1,52 @@
+/* Per-speler kleur via data-pi attribuut */
+:root {
+  --pc0: #FF6B6B; /* koraal rood    */
+  --pc1: #339AF0; /* helder blauw   */
+  --pc2: #51CF66; /* fris groen     */
+  --pc3: #FFD700; /* zonnig geel    */
+  --pc4: #CC5DE8; /* levendig paars */
+  --pc5: #FF9100; /* pittig oranje  */
+  --pc6: #4ECDC4; /* mint teal      */
+}
+
+.player-stack[data-pi="0"] { --pc: var(--pc0); }
+.player-stack[data-pi="1"] { --pc: var(--pc1); }
+.player-stack[data-pi="2"] { --pc: var(--pc2); }
+.player-stack[data-pi="3"] { --pc: var(--pc3); }
+.player-stack[data-pi="4"] { --pc: var(--pc4); }
+.player-stack[data-pi="5"] { --pc: var(--pc5); }
+.player-stack[data-pi="6"] { --pc: var(--pc6); }
+
 @keyframes pulse-active {
-  0%, 100% { box-shadow: 0 0 0 2.5px #ff9100, 0 6px 20px rgba(255,145,0,.35); }
-  50%       { box-shadow: 0 0 0 4px   #ffcc02, 0 10px 28px rgba(255,145,0,.55); }
+  0%, 100% { box-shadow: 0 0 0 2.5px var(--pc, #ff9100), 0 6px 20px rgba(255,145,0,.3); }
+  50%       { box-shadow: 0 0 0 5px   var(--pc, #ff9100), 0 10px 32px rgba(255,145,0,.5); }
 }
 
 .player-stack {
   background: linear-gradient(to bottom, #fafaf8, #f5f0e8);
   border-radius: 12px;
   padding: clamp(.45rem, 2vmin, .75rem) clamp(.55rem, 2vw, 1rem);
-  border: 2.5px solid #d5c9b6;
+  border: 2.5px solid var(--pc, #d5c9b6);
   min-width: 0;
-  box-shadow: 0 3px 8px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.8);
+  box-shadow: 0 3px 10px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,.85);
+  transition: border-color .2s;
 }
 .player-stack.compact {
   padding: clamp(.35rem, 1.5vmin, .6rem) clamp(.45rem, 1.5vw, .8rem);
 }
 .player-stack.active {
-  border: 2.5px solid #ff9100;
-  background: linear-gradient(135deg, #fff9e6, #ffe0b2);
+  border: 3px solid var(--pc, #ff9100);
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--pc, #ff9100) 12%, white),
+    color-mix(in srgb, var(--pc, #ff9100) 20%, white));
   animation: pulse-active 1.8s ease-in-out infinite;
 }
 .player-stack.me {
-  border: 2.5px solid #66bb6a;
-  background: linear-gradient(to bottom, #f0f9f0, #e8f5e9);
+  background: linear-gradient(to bottom,
+    color-mix(in srgb, var(--pc, #66bb6a) 8%, white),
+    color-mix(in srgb, var(--pc, #66bb6a) 14%, white));
 }
-.player-stack.active.me { border-color: #ff9100; }
+.player-stack.active.me { border-color: var(--pc, #ff9100); }
 
 /* Header: avatar | naam | score-pill | jij */
 .stack-header {
@@ -38,7 +61,7 @@
   height: 30px;
   object-fit: contain;
   flex-shrink: 0;
-  filter: drop-shadow(0 1px 3px rgba(0,0,0,.15));
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,.18));
 }
 .stack-name {
   font-weight: 800;
@@ -56,10 +79,10 @@
   align-items: center;
   gap: .18rem;
   flex-shrink: 0;
-  background: rgba(255,255,255,.65);
+  background: rgba(255,255,255,.7);
   border-radius: 20px;
   padding: .08rem .28rem;
-  border: 1.5px solid rgba(0,0,0,.07);
+  border: 1.5px solid color-mix(in srgb, var(--pc, #ff9100) 35%, transparent);
 }
 .score-coin-sm {
   width: 22px;
@@ -70,12 +93,12 @@
 .score-num-inline {
   font-weight: 800;
   font-size: 1rem;
-  color: #e65100;
+  color: var(--pc, #e65100);
 }
 
 .me-badge {
   font-size: .58rem;
-  background: linear-gradient(135deg, #66bb6a, #81c784);
+  background: color-mix(in srgb, var(--pc, #66bb6a) 85%, black);
   color: #fff;
   padding: .1rem .3rem;
   border-radius: 6px;
@@ -102,7 +125,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 2px 6px rgba(255,145,0,.18);
+  box-shadow: 0 2px 6px rgba(255,145,0,.2);
 }
 .stack-tile.top {
   background: linear-gradient(135deg, #fff9e6, #ffb74d);
