@@ -59,7 +59,7 @@ export function findStealTarget(sum: number, players: Player[], currentPlayerId:
   return null;
 }
 
-export function isBust(turn: TurnState, tiles: number[]): boolean {
+export function isBust(turn: TurnState): boolean {
   return availablePicks(turn.lastRoll, turn.usedValues as DieFace[]).length === 0;
 }
 

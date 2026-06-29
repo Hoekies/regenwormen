@@ -15,6 +15,7 @@ import {
 import {
   createRoom,
   getPlayerIdBySocket,
+  getRoom,
   getState,
   joinRoom,
   registerSocket,
@@ -26,9 +27,50 @@ import {
 type IoServer = Server<ClientToServerEvents, ServerToClientEvents>;
 type IoSocket = Socket<ClientToServerEvents, ServerToClientEvents>;
 
+const TURN_TIMEOUT_MS = 30_000; // tijd die een afwezige speler krijgt voordat zijn beurt automatisch wordt afgebroken
+const turnTimers = new Map<string, NodeJS.Timeout>();
+
+function isPlayerConnected(roomCode: string, playerId: string): boolean {
+  const room = getRoom(roomCode);
+  if (!room) return false;
+  return [...room.socketToPlayer.values()].includes(playerId);
+}
+
+function clearTurnTimer(roomCode: string): void {
+  const timer = turnTimers.get(roomCode);
+  if (timer) {
+    clearTimeout(timer);
+    turnTimers.delete(roomCode);
+  }
+}
+
+// Breekt de beurt van een speler automatisch af als die speler geen verbonden socket meer heeft,
+// zodat het spel niet vastloopt wanneer iemand wegvalt zonder terug te komen.
+function scheduleTurnSkipIfDisconnected(io: IoServer, roomCode: string): void {
+  clearTurnTimer(roomCode);
+  const state = getState(roomCode);
+  if (!state || state.phase !== "playing") return;
+  const current = state.players[state.currentPlayerIndex];
+  if (isPlayerConnected(roomCode, current.id)) return;
+
+  const timer = setTimeout(() => {
+    turnTimers.delete(roomCode);
+    const latest = getState(roomCode);
+    if (!latest || latest.phase !== "playing") return;
+    const stillCurrent = latest.players[latest.currentPlayerIndex];
+    if (stillCurrent.id !== current.id) return;
+    if (isPlayerConnected(roomCode, stillCurrent.id)) return;
+
+    setState(roomCode, applyBust(latest));
+    broadcast(io, roomCode);
+  }, TURN_TIMEOUT_MS);
+  turnTimers.set(roomCode, timer);
+}
+
 function broadcast(io: IoServer, roomCode: string): void {
   const state = getState(roomCode);
   if (state) io.to(roomCode).emit("roomUpdated", { state });
+  scheduleTurnSkipIfDisconnected(io, roomCode);
 }
 
 export function registerHandlers(io: IoServer, socket: IoSocket): void {
@@ -118,7 +160,7 @@ export function registerHandlers(io: IoServer, socket: IoSocket): void {
     }
 
     const newTurn = applyRoll(state.turn);
-    if (isBust(newTurn, state.tiles)) {
+    if (isBust(newTurn)) {
       setState(ctx.roomCode, applyBust({ ...state, turn: newTurn }, newTurn.lastRoll));
     } else {
       setState(ctx.roomCode, { ...state, turn: newTurn });
@@ -178,14 +220,11 @@ export function registerHandlers(io: IoServer, socket: IoSocket): void {
       const rowTile = claimableTile(sum, state.tiles);
       const stealTargetId = findStealTarget(sum, state.players, current.id);
 
-      if (rowTile === sum) {
-        // Exacte match in de rij: pak uit de rij (regel: rij heeft voorrang)
-        setState(ctx.roomCode, applyClaim(state, rowTile));
-      } else if (stealTargetId) {
-        // Alleen exacte match bij tegenstander → stelen
+      // Tegelwaarden zijn uniek: een exacte match in de rij en een stapel met diezelfde
+      // bovenste waarde kunnen nooit allebei voorkomen, dus stelen heeft hier voorrang.
+      if (stealTargetId) {
         setState(ctx.roomCode, applySteal(state, stealTargetId));
       } else {
-        // Hoogste rij-tegel ≤ som
         setState(ctx.roomCode, applyClaim(state, rowTile!));
       }
     }
@@ -201,6 +240,10 @@ export function registerHandlers(io: IoServer, socket: IoSocket): void {
   });
 
   socket.on("disconnect", () => {
+    const ctx = getPlayerIdBySocket(socket.id);
     removeSocket(socket.id);
+    if (ctx) {
+      scheduleTurnSkipIfDisconnected(io, ctx.roomCode);
+    }
   });
 }
