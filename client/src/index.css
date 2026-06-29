@@ -13,9 +13,12 @@
   --green-d: #1a7a3c;
   --red:     #c62828;
   --gold:    #FFD700;
+  --gold-light: #FFF1B8;
+  --gold-deep:  #B8860B;
+  --bronze:  #7a4a12;
   --white:   #FFFFFF;
   --cream:   #FFFEF9;
-  --shadow:  0 12px 32px rgba(0,0,0,.2), 0 0 0 1px rgba(0,0,0,.06);
+  --shadow:  0 16px 40px rgba(0,0,0,.28), 0 0 0 1px rgba(0,0,0,.06);
   --radius:  22px;
   --pad: .75rem;
 }
@@ -28,9 +31,12 @@ html {
 body {
   font-family: "Fredoka", sans-serif;
   background:
-    radial-gradient(ellipse at 15% 10%, rgba(255,255,255,.07) 0%, transparent 45%),
-    radial-gradient(ellipse at 85% 90%, rgba(81,207,102,.12) 0%, transparent 50%),
-    linear-gradient(160deg, #1a472a 0%, #2d6a4f 45%, #1b4332 100%);
+    radial-gradient(circle at 50% -10%, rgba(255,224,130,.10) 0%, transparent 55%),
+    radial-gradient(ellipse at 12% 8%, rgba(255,255,255,.08) 0%, transparent 42%),
+    radial-gradient(ellipse at 88% 94%, rgba(81,207,102,.14) 0%, transparent 50%),
+    repeating-radial-gradient(circle at 50% 50%, rgba(0,0,0,.025) 0px, rgba(0,0,0,.025) 1px, transparent 2px, transparent 4px),
+    radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0) 40%, rgba(0,0,0,.35) 100%),
+    linear-gradient(160deg, #1d5233 0%, #2d6a4f 45%, #163a28 100%);
   height: 100dvh;
   overflow: hidden;
   color: #1a1a1a;
@@ -63,7 +69,22 @@ button {
   padding: clamp(.55rem, 1.5vmin, .75rem) clamp(1rem, 2vw, 1.5rem);
   transition: transform 80ms, box-shadow 80ms;
   min-height: 44px;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
 }
+button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.45) 48%, transparent 66%);
+  background-size: 220% 220%;
+  background-position: 130% 0%;
+  transition: background-position .55s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+button:hover:not(:disabled)::before { background-position: -30% 0%; }
 button:active { transform: scale(.95); }
 button:disabled { opacity: .4; cursor: not-allowed; }
 
@@ -118,7 +139,10 @@ input[type="text"]:focus {
   background: var(--cream);
   border-radius: var(--radius);
   padding: .75rem;
-  box-shadow: var(--shadow);
+  box-shadow:
+    var(--shadow),
+    0 0 0 1px rgba(184,134,11,.35),
+    0 0 0 4px rgba(255,215,0,.12);
 }
 
 .error-msg {

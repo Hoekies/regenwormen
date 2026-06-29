@@ -18,9 +18,24 @@
   flex-direction: column;
   border-radius: 20px !important;
   padding: clamp(.5rem, 2vmin, 1.25rem) !important;
-  border: 3px solid rgba(255,145,0,.35) !important;
-  background: linear-gradient(to bottom, #fffdf7, #fff8e1) !important;
-  box-shadow: 0 8px 24px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.9) !important;
+  border: 3px solid #D4AF37 !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,.6) 0%, transparent 60%),
+    linear-gradient(to bottom, #fffdf7, #fff4d6) !important;
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.18),
+    inset 0 1px 0 rgba(255,255,255,.95),
+    inset 0 0 0 1px rgba(255,255,255,.5),
+    0 0 0 5px rgba(212,175,55,.18) !important;
+  position: relative;
+}
+.game-card::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: 14px;
+  border: 1px solid rgba(212,175,55,.55);
+  pointer-events: none;
 }
 
 .game-card-section {
@@ -39,9 +54,22 @@
 
 .game-card-divider {
   height: 2px;
-  background: linear-gradient(90deg, transparent, #FF9100 30%, #FFE66D 50%, #FF9100 70%, transparent);
-  margin: .35rem 0;
-  opacity: .7;
+  background: linear-gradient(90deg, transparent, #D4AF37 25%, #FFF1B8 50%, #D4AF37 75%, transparent);
+  margin: .5rem 0;
+  opacity: .85;
+  position: relative;
+}
+.game-card-divider::before {
+  content: "✦";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: .7rem;
+  color: #D4AF37;
+  background: #fff8e1;
+  padding: 0 .4rem;
+  text-shadow: 0 0 6px rgba(255,215,0,.6);
 }
 
 /* Footer: Gooi + Logout, onderaan */
@@ -90,19 +118,21 @@
   font-weight: 800;
   color: #fff;
   background: linear-gradient(135deg, #FF9100, #FFCC00);
-  padding: .22rem .7rem;
+  padding: .22rem .8rem;
   border-radius: 12px;
-  box-shadow: 0 3px 12px rgba(255,145,0,.35), inset 0 -2px 0 rgba(0,0,0,.15);
+  border: 1.5px solid rgba(255,255,255,.5);
+  box-shadow: 0 4px 14px rgba(255,145,0,.45), inset 0 -2px 0 rgba(0,0,0,.15), inset 0 2px 0 rgba(255,255,255,.4);
+  text-shadow: 0 1px 2px rgba(0,0,0,.2);
 }
 .turn-sum {
   font-size: 1.05rem;
   font-weight: 700;
   color: #1b5e20;
-  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
-  padding: .22rem .7rem;
+  background: linear-gradient(135deg, #effaf0, #cdeed0);
+  padding: .22rem .8rem;
   border-radius: 10px;
   border-left: 4px solid #51CF66;
-  box-shadow: 0 3px 10px rgba(81,207,102,.2);
+  box-shadow: 0 4px 12px rgba(81,207,102,.25), inset 0 1px 0 rgba(255,255,255,.7);
 }
 .worm-ok { color: #1b5e20; }
 

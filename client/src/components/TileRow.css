@@ -1,9 +1,15 @@
 .tile-area {
-  background: linear-gradient(135deg, #f5f3ee, #ede7df);
-  border: 2.5px solid #d5c9b6;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,.5) 0%, transparent 55%),
+    linear-gradient(135deg, #f7f4ec, #e9e1d2);
+  border: 2.5px solid #c8b89a;
   border-radius: 14px;
-  padding: .5rem .65rem;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.85), 0 3px 10px rgba(0,0,0,.1);
+  padding: .55rem .7rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.9),
+    inset 0 0 0 1px rgba(255,255,255,.4),
+    0 4px 14px rgba(0,0,0,.14),
+    0 0 0 4px rgba(184,134,11,.1);
 }
 .tile-row {
   display: flex;
@@ -21,36 +27,37 @@
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  background: #e8e0d0;
-  border: 2.5px solid #c8b89a;
+  background: linear-gradient(160deg, #f0ebe0, #d8cdb8);
+  border: 2.5px solid #b8a888;
   color: #bbb;
-  transition: transform .2s cubic-bezier(.34,1.56,.64,1);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -2px 3px rgba(0,0,0,.08);
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
 }
 
 @keyframes tile-pop {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50%       { transform: translateY(-3px) scale(1.04); }
+  0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 4px 14px rgba(255,145,0,.4), 0 0 0 2px rgba(255,215,0,.3), inset 0 1px 0 rgba(255,255,255,.95); }
+  50%       { transform: translateY(-3px) scale(1.05); box-shadow: 0 9px 22px rgba(255,145,0,.55), 0 0 0 4px rgba(255,215,0,.45), inset 0 1px 0 rgba(255,255,255,.95); }
 }
 
 .tile.available {
-  background: linear-gradient(145deg, #fffce6, #FFE066);
-  border: 2.5px solid #FF9100;
-  color: #e65100;
-  box-shadow: 0 4px 14px rgba(255,145,0,.35), inset 0 1px 0 rgba(255,255,255,.9);
+  background: linear-gradient(160deg, #fffce6 0%, #FFE066 55%, #FFC93C 100%);
+  border: 2.5px solid #D4AF37;
+  color: #8a4a00;
   font-weight: 800;
   animation: tile-pop 2.2s ease-in-out infinite;
 }
 .tile.available:hover {
   animation: none;
-  transform: translateY(-4px) scale(1.1);
-  box-shadow: 0 8px 22px rgba(255,145,0,.5), inset 0 1px 0 rgba(255,255,255,.9);
+  transform: translateY(-4px) scale(1.12);
+  box-shadow: 0 10px 26px rgba(255,145,0,.55), 0 0 0 4px rgba(255,215,0,.5), inset 0 1px 0 rgba(255,255,255,.95);
 }
 
 .tile.closed {
-  background: #d0c8be;
-  border-color: #a89880;
-  opacity: .28;
-  filter: grayscale(80%);
+  background: linear-gradient(160deg, #c9c0ae, #a89880);
+  border-color: #8a7a60;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,.35), inset 0 -1px 0 rgba(255,255,255,.2);
+  opacity: .45;
+  filter: grayscale(60%);
   animation: none;
 }
 
